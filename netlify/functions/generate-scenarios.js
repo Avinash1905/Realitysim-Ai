@@ -69,7 +69,12 @@ Context & Profile:
 - Goals: ${(info.goals || []).join(', ')}
 - Additional Context: ${info.additional_context || 'None'}`;
 
+    const primaryModel = process.env.OPENROUTER_MODEL || 'google/gemini-2.5-flash';
     const models = [
+      primaryModel,
+      'google/gemini-2.5-flash',
+      'openai/gpt-4o-mini',
+      'meta-llama/llama-3.3-70b-instruct',
       'liquid/lfm-2.5-2.6b:free',
       'google/gemma-4-26b-a4b-it:free',
       'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free',
@@ -88,6 +93,7 @@ Context & Profile:
           },
           body: JSON.stringify({
             model: model,
+            max_tokens: 2000,
             messages: [
               { role: "system", content: systemPrompt },
               { role: "user", content: userPrompt }
