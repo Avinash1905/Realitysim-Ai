@@ -184,19 +184,36 @@ html, body {
 
 .info-tip-card {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.25);
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.22);
   border-radius: 14px;
-  padding: 0.75rem 1.15rem;
-  max-width: 520px;
+  padding: 0.85rem 1.2rem;
+  max-width: 540px;
+}
+
+.tip-icon {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.tip-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.tip-heading {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #fbbf24;
 }
 
 .tip-text {
-  font-size: 0.82rem;
-  color: #fde68a;
-  line-height: 1.4;
+  font-size: 0.8rem;
+  color: rgba(254, 240, 138, 0.85);
+  line-height: 1.45;
 }
 
 /* Form Grid */
@@ -210,6 +227,10 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+}
+
+.full-width-card {
+  grid-column: 1 / -1;
 }
 
 /* Glass Card */
@@ -239,6 +260,12 @@ html, body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.card-icon-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #3b82f6;
 }
 
 .purple-icon-box { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); }

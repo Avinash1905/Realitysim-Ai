@@ -698,15 +698,21 @@
         console.log("Client simulation mode active:", err);
       }
 
-      // 3. Smart fallback if empty
+      // 3. Generate real AI scenarios via OpenRouter if empty
       if (!loadedScenarios || loadedScenarios.length === 0) {
-        const prompt = localStorage.getItem('realitysim_prompt') || "Higher education vs immediate industry job";
+        const prompt = localStorage.getItem('realitysim_prompt') || "Strategic Career and Financial Decision";
         const info = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
-        const fallback = RealitySimAIService.generateSmartFallback(prompt, info);
-        loadedScenarios = fallback.scenarios;
-        localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
-        localStorage.setItem('realitysim_title', fallback.title);
-        localStorage.setItem('realitysim_category', fallback.category);
+        try {
+          const aiResult = await RealitySimAIService.generateScenarios(prompt, info);
+          if (aiResult && aiResult.scenarios) {
+            loadedScenarios = aiResult.scenarios;
+            localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
+            if (aiResult.title) localStorage.setItem('realitysim_title', aiResult.title);
+            if (aiResult.category) localStorage.setItem('realitysim_category', aiResult.category);
+          }
+        } catch (err) {
+          console.error("OpenRouter fetch error:", err);
+        }
       }
 
       // Set Page Header Title if available

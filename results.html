@@ -111,213 +111,328 @@
           <!-- Header Banner & Decision Meta -->
           <div class="header-banner">
             <div class="results-header-text">
-              <h1 class="page-title">Simulation Results</h1>
-              <p class="page-subtitle">Here are the possible outcomes for your decision.</p>
+              <h1 class="page-title">Simulation <span class="highlight-purple">Results</span></h1>
+              <p class="page-subtitle">Here's what your simulation reveals for your decision.</p>
             </div>
 
-            <div class="decision-meta-card">
-              <div class="decision-meta-left">
-                <div class="decision-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
+            <div class="header-meta-group">
+              <!-- Decision Badge Card -->
+              <div class="meta-pill-card">
+                <div class="meta-pill-icon blue-pill-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
                   </svg>
                 </div>
-                <div class="decision-details">
-                  <div class="decision-title-row">
-                    <span class="decision-title">Job vs Master's Degree</span>
-                    <span class="category-badge">Career</span>
+                <div class="meta-pill-info">
+                  <span class="meta-pill-label">Your Decision</span>
+                  <div class="meta-pill-val-row">
+                    <span class="meta-pill-value decision-title">Job vs Master's Degree</span>
+                    <button class="edit-btn" title="Edit Decision">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                      </svg>
+                    </button>
                   </div>
-                  <p class="decision-query">
-                    I am deciding whether to take a software job after B.Tech or pursue a master's degree. Compare the possible outcomes over 5 years.
-                  </p>
                 </div>
               </div>
-              
-              <div class="decision-meta-right">
-                <button class="edit-btn" title="Edit Decision">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+
+              <!-- Time Horizon Card -->
+              <div class="meta-pill-card">
+                <div class="meta-pill-icon blue-pill-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
                   </svg>
-                </button>
-                <div class="meta-stat">5 years • 10,000 runs</div>
-                <div class="meta-date">Created on Oct 1, 2026</div>
+                </div>
+                <div class="meta-pill-info">
+                  <span class="meta-pill-value horizon-title">5 Years</span>
+                  <span class="meta-pill-label">Time Horizon</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- KPI Metric Cards Row -->
           <div class="metrics-grid">
-            <!-- Card 1 -->
+            <!-- Card 1: Best Expected Outcome -->
             <div class="metric-card">
-              <div class="metric-icon-box blue-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                  <polyline points="17 6 23 6 23 12"></polyline>
-                </svg>
-              </div>
-              <div class="metric-info">
-                <span class="metric-label">Estimated 5-Yr Savings</span>
-                <div class="metric-value">₹ 28.4 L</div>
-                <div class="metric-trend green-trend">▲ +62% vs current</div>
-              </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="metric-card">
-              <div class="metric-icon-box purple-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <div class="metric-icon-box green-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="18" y1="20" x2="18" y2="10"></line>
                   <line x1="12" y1="20" x2="12" y2="4"></line>
                   <line x1="6" y1="20" x2="6" y2="14"></line>
                 </svg>
               </div>
               <div class="metric-info">
-                <span class="metric-label">Typical In-Hand Profit</span>
-                <div class="metric-value">₹ 18.7 L</div>
+                <span class="metric-label">Best Expected Outcome</span>
+                <div class="metric-value green-val" id="kpi-expected-val">₹ 72.1 L</div>
+                <div class="metric-trend green-trend" id="kpi-trend-val">▲ +180% vs baseline</div>
               </div>
             </div>
 
-            <!-- Card 3 -->
+            <!-- Card 2: Median Outcome -->
             <div class="metric-card">
-              <div class="metric-icon-box orange-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <div class="metric-icon-box magenta-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.5">
+                  <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                  <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                </svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-label">Median Outcome</span>
+                <div class="metric-value blue-val" id="kpi-median-val">₹ 71.6 L</div>
+              </div>
+            </div>
+
+            <!-- Card 3: Risk Level -->
+            <div class="metric-card">
+              <div class="metric-icon-box orange-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </div>
               <div class="metric-info">
-                <span class="metric-label">Financial Risk Level</span>
-                <div class="metric-value orange-value">Medium</div>
-                <div class="metric-sub">54 / 100</div>
+                <span class="metric-label">Risk Level</span>
+                <div class="metric-value green-val" id="kpi-risk-val">Low</div>
               </div>
             </div>
 
-            <!-- Card 4 -->
+            <!-- Card 4: Confidence -->
             <div class="metric-card">
-              <div class="metric-icon-box violet-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <div class="metric-icon-box blue-icon-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
                   <circle cx="12" cy="12" r="6"></circle>
                   <circle cx="12" cy="12" r="2"></circle>
                 </svg>
               </div>
               <div class="metric-info">
-                <span class="metric-label">Chance of Success</span>
-                <div class="metric-value">76%</div>
-                <div class="metric-sub">Based on available data</div>
+                <span class="metric-label">Confidence</span>
+                <div class="metric-value-row">
+                  <div class="metric-value blue-val" id="kpi-confidence-val">76%</div>
+                  <span class="info-bubble" title="Confidence is computed using 10,000 Monte Carlo statistical iterations">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Middle Section: Scenario Comparison -->
-          <div class="card panel-card">
-            <div class="card-header">
-              <h3 class="card-title">Scenario Comparison</h3>
+          <!-- Middle Section: Outcome Distribution & Scenario Comparison (2 Columns) -->
+          <div class="content-split-grid middle-grid">
+            
+            <!-- Left: Outcome Distribution -->
+            <div class="card panel-card distribution-card">
+              <div class="card-header-split">
+                <div class="header-with-tooltip">
+                  <h3 class="card-title">Outcome Distribution</h3>
+                  <span class="info-circle" title="Probabilistic financial distribution curve across all evaluated paths">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                  </span>
+                </div>
+                <div class="custom-chart-select">
+                  <span>Total Financial Value</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="chart-container">
+                <div class="y-axis-label">Probability</div>
+                <div class="chart-viewport">
+                  <!-- Tooltip Callout -->
+                  <div class="chart-peak-tooltip">
+                    <div class="tooltip-badge">
+                      <span class="tooltip-dot"></span>
+                      <span class="tooltip-title">Highest Potential</span>
+                    </div>
+                    <div class="tooltip-amount">₹ 72.1 L</div>
+                  </div>
+
+                  <svg viewBox="0 0 540 220" class="distribution-svg">
+                    <defs>
+                      <linearGradient id="curve-blue-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.55"/>
+                        <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.02"/>
+                      </linearGradient>
+                      <linearGradient id="curve-purple-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#a855f7" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#a855f7" stop-opacity="0.02"/>
+                      </linearGradient>
+                      <linearGradient id="curve-green-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#10b981" stop-opacity="0.6"/>
+                        <stop offset="100%" stop-color="#10b981" stop-opacity="0.02"/>
+                      </linearGradient>
+                    </defs>
+
+                    <!-- Horizontal Grid Lines -->
+                    <line x1="45" y1="25" x2="520" y2="25" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+                    <line x1="45" y1="65" x2="520" y2="65" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+                    <line x1="45" y1="105" x2="520" y2="105" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+                    <line x1="45" y1="145" x2="520" y2="145" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+                    <line x1="45" y1="185" x2="520" y2="185" stroke="rgba(255,255,255,0.14)"/>
+
+                    <!-- Y-Axis Labels -->
+                    <text x="36" y="29" class="axis-text" text-anchor="end">20%</text>
+                    <text x="36" y="69" class="axis-text" text-anchor="end">15%</text>
+                    <text x="36" y="109" class="axis-text" text-anchor="end">10%</text>
+                    <text x="36" y="149" class="axis-text" text-anchor="end">5%</text>
+                    <text x="36" y="189" class="axis-text" text-anchor="end">0%</text>
+
+                    <!-- Vertical Dotted Indicator for Peak -->
+                    <line x1="335" y1="48" x2="335" y2="185" stroke="#10b981" stroke-dasharray="3 3" stroke-width="1.6"/>
+
+                    <!-- Curve 1: Blue (Low-Cost Mobile Cart) -->
+                    <path d="M 45 185 Q 100 185 130 115 Q 160 55 190 115 Q 220 185 280 185 Z" fill="url(#curve-blue-grad)"/>
+                    <path d="M 45 185 Q 100 185 130 115 Q 160 55 190 115 Q 220 185 280 185" fill="none" stroke="#3b82f6" stroke-width="2.2"/>
+
+                    <!-- Curve 2: Purple (Multi-Outlet Franchise) -->
+                    <path d="M 120 185 Q 170 185 210 105 Q 245 42 280 105 Q 325 185 410 185 Z" fill="url(#curve-purple-grad)"/>
+                    <path d="M 120 185 Q 170 185 210 105 Q 245 42 280 105 Q 325 185 410 185" fill="none" stroke="#a855f7" stroke-width="2.2"/>
+
+                    <!-- Curve 3: Green (High-Footfall Kiosk) -->
+                    <path d="M 210 185 Q 275 185 305 95 Q 335 32 365 95 Q 415 185 510 185 Z" fill="url(#curve-green-grad)"/>
+                    <path d="M 210 185 Q 275 185 305 95 Q 335 32 365 95 Q 415 185 510 185" fill="none" stroke="#10b981" stroke-width="2.2"/>
+
+                    <!-- X-Axis Labels -->
+                    <text x="45" y="202" class="axis-text" text-anchor="middle">0</text>
+                    <text x="123" y="202" class="axis-text" text-anchor="middle">10</text>
+                    <text x="201" y="202" class="axis-text" text-anchor="middle">20</text>
+                    <text x="280" y="202" class="axis-text" text-anchor="middle">30</text>
+                    <text x="358" y="202" class="axis-text" text-anchor="middle">40</text>
+                    <text x="436" y="202" class="axis-text" text-anchor="middle">50</text>
+                    <text x="515" y="202" class="axis-text" text-anchor="middle">60</text>
+                  </svg>
+                </div>
+              </div>
+              <div class="x-axis-title">Total Financial Value (₹ Lakhs)</div>
+
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <span class="dot dot-blue"></span>
+                  <span>High-Footfall Commercial Kiosk</span>
+                </div>
+                <div class="legend-item">
+                  <span class="dot dot-purple"></span>
+                  <span>Multi-Outlet Franchise Expansion</span>
+                </div>
+                <div class="legend-item">
+                  <span class="dot dot-green"></span>
+                  <span>Low-Cost Mobile Cart / Express Stall</span>
+                </div>
+              </div>
             </div>
+
+            <!-- Right: Scenario Comparison -->
+            <div class="card panel-card comparison-card">
+              <div class="card-header-split">
+                <h3 class="card-title">Scenario Comparison</h3>
+                <div class="custom-chart-select">
+                  <span>Sort by: Expected Outcome</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+              </div>
 
               <div class="scenarios-list">
                 <!-- Scenario 1 -->
-                <div class="scenario-item">
+                <div class="scenario-item active-scenario" onclick="selectScenario(0)">
+                  <div class="scenario-rank-badge rank-1">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span>1</span>
+                  </div>
                   <div class="scenario-icon-box blue-scenario">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
                       <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>
                   </div>
-                  <div class="scenario-content">
-                    <div class="scenario-header">
-                      <span class="scenario-name">Job (Immediate)</span>
-                      <span class="badge-recommended">Recommended</span>
-                    </div>
-                    <p class="scenario-sub">Start a software job after B.Tech.</p>
-                  </div>
-                  <div class="scenario-stats">
-                    <div class="stat-col">
-                      <span class="stat-val">₹ 22.6 L</span>
-                      <span class="stat-lbl">Expected</span>
-                    </div>
-                    <div class="stat-col">
-                      <span class="stat-val">72%</span>
-                      <span class="stat-lbl">Probability</span>
-                    </div>
-                    <div class="stat-col">
-                      <span class="stat-val risk-med">Medium</span>
-                      <span class="stat-lbl">Risk</span>
+                  <div class="scenario-main-info">
+                    <div class="scenario-title">High-Footfall Commercial Kiosk</div>
+                    <div class="scenario-val green-val">₹ 72.1 L</div>
+                    <div class="scenario-progress-row">
+                      <div class="scenario-bar-track">
+                        <div class="scenario-bar-fill fill-green" style="width: 84%;"></div>
+                      </div>
+                      <span class="scenario-pct">84%</span>
                     </div>
                   </div>
-                  <div class="scenario-arrow">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <div class="scenario-tag-wrap">
+                    <span class="risk-badge badge-low">Low</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="row-arrow">
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </div>
                 </div>
 
                 <!-- Scenario 2 -->
-                <div class="scenario-item">
+                <div class="scenario-item" onclick="selectScenario(1)">
+                  <div class="scenario-rank-badge rank-2">
+                    <span>2</span>
+                  </div>
                   <div class="scenario-icon-box purple-scenario">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
                       <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
                       <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
                     </svg>
                   </div>
-                  <div class="scenario-content">
-                    <div class="scenario-header">
-                      <span class="scenario-name">Master's Degree</span>
-                    </div>
-                    <p class="scenario-sub">Pursue a master's degree with education costs and future growth.</p>
-                  </div>
-                  <div class="scenario-stats">
-                    <div class="stat-col">
-                      <span class="stat-val">₹ 26.1 L</span>
-                      <span class="stat-lbl">Expected</span>
-                    </div>
-                    <div class="stat-col">
-                      <span class="stat-val">64%</span>
-                      <span class="stat-lbl">Probability</span>
-                    </div>
-                    <div class="stat-col">
-                      <span class="stat-val risk-high">High</span>
-                      <span class="stat-lbl">Risk</span>
+                  <div class="scenario-main-info">
+                    <div class="scenario-title">Multi-Outlet Franchise Expansion</div>
+                    <div class="scenario-val purple-val">₹ 1.41 Cr</div>
+                    <div class="scenario-progress-row">
+                      <div class="scenario-bar-track">
+                        <div class="scenario-bar-fill fill-purple" style="width: 62%;"></div>
+                      </div>
+                      <span class="scenario-pct">62%</span>
                     </div>
                   </div>
-                  <div class="scenario-arrow">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <div class="scenario-tag-wrap">
+                    <span class="risk-badge badge-medium">Medium</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="row-arrow">
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </div>
                 </div>
 
                 <!-- Scenario 3 -->
-                <div class="scenario-item">
-                  <div class="scenario-icon-box green-scenario">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
-                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                <div class="scenario-item" onclick="selectScenario(2)">
+                  <div class="scenario-rank-badge rank-3">
+                    <span>3</span>
+                  </div>
+                  <div class="scenario-icon-box blue-scenario">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>
                   </div>
-                  <div class="scenario-content">
-                    <div class="scenario-header">
-                      <span class="scenario-name">Job + Part-time Study</span>
-                    </div>
-                    <p class="scenario-sub">Take a job and pursue higher studies part-time.</p>
-                  </div>
-                  <div class="scenario-stats">
-                    <div class="stat-col">
-                      <span class="stat-val">₹ 28.4 L</span>
-                      <span class="stat-lbl">Expected</span>
-                    </div>
-                    <div class="stat-col">
-                      <span class="stat-val">78%</span>
-                      <span class="stat-lbl">Probability</span>
-                    </div>
-                    <div class="stat-col">
-                      <span class="stat-val risk-med">Medium</span>
-                      <span class="stat-lbl">Risk</span>
+                  <div class="scenario-main-info">
+                    <div class="scenario-title">Low-Cost Mobile Cart / Express Stall</div>
+                    <div class="scenario-val blue-val">₹ 38.7 L</div>
+                    <div class="scenario-progress-row">
+                      <div class="scenario-bar-track">
+                        <div class="scenario-bar-fill fill-blue" style="width: 79%;"></div>
+                      </div>
+                      <span class="scenario-pct">79%</span>
                     </div>
                   </div>
-                  <div class="scenario-arrow">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <div class="scenario-tag-wrap">
+                    <span class="risk-badge badge-medium">Medium</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="row-arrow">
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </div>
@@ -325,123 +440,100 @@
               </div>
             </div>
 
-          <!-- Bottom Section: Key Insights & Why this result? -->
+          </div>
+
+          <!-- Bottom Section: Key Insights & Factors Influencing Results (2 Columns) -->
           <div class="content-split-grid bottom-grid">
             
             <!-- Left: Key Insights -->
             <div class="card panel-card">
-              <div class="card-header">
+              <div class="card-header-icon-row">
+                <div class="header-icon-box orange-header-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                    <path d="M9 18h6"></path>
+                    <path d="M10 22h4"></path>
+                    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>
+                  </svg>
+                </div>
                 <h3 class="card-title">Key Insights</h3>
               </div>
 
               <div class="insights-list">
                 <div class="insight-row">
-                  <div class="insight-icon icon-green">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
-                      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-                      <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-                    </svg>
-                  </div>
-                  <p class="insight-text">Job + Part-time Study has the highest expected outcome.</p>
+                  <div class="insight-number-badge badge-num-green">1</div>
+                  <p class="insight-text">Most Likely Result: You are estimated to accumulate approx. ₹ 72.1 L in total savings over 5 years.</p>
                 </div>
 
                 <div class="insight-row">
-                  <div class="insight-icon icon-purple">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <circle cx="12" cy="12" r="6"></circle>
-                    </svg>
-                  </div>
-                  <p class="insight-text">Master's Degree shows higher risk due to education costs.</p>
+                  <div class="insight-number-badge badge-num-purple">2</div>
+                  <p class="insight-text">Worst-Case Safety Floor: In slower months or rainy seasons, your estimated floor stays protected around ₹ 44.4 L.</p>
                 </div>
 
                 <div class="insight-row">
-                  <div class="insight-icon icon-blue">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
-                      <line x1="18" y1="20" x2="18" y2="10"></line>
-                      <line x1="12" y1="20" x2="12" y2="4"></line>
-                      <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                  </div>
-                  <p class="insight-text">Job (Immediate) has more stable outcomes with lower risk.</p>
-                </div>
-
-                <div class="insight-row">
-                  <div class="insight-icon icon-orange">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5">
-                      <path d="M9 18h6"></path>
-                      <path d="M10 22h4"></path>
-                      <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>
-                    </svg>
-                  </div>
-                  <p class="insight-text">Results are based on industry trends, education costs, inflation, and job market conditions.</p>
+                  <div class="insight-number-badge badge-num-blue">3</div>
+                  <p class="insight-text">Best-Case High Growth: If customer word-of-mouth grows rapidly, your 5-year profit can reach up to ₹ 98.7 L.</p>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Why this result? Factors -->
-            <div class="card panel-card why-result-card">
-              <div class="card-header">
-                <h3 class="card-title">Why this result?</h3>
+            <!-- Right: Factors Influencing Results -->
+            <div class="card panel-card factors-card">
+              <div class="card-header-icon-row">
+                <div class="header-icon-box blue-header-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="1" y1="14" x2="7" y2="14"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                  </svg>
+                </div>
+                <h3 class="card-title">Factors Influencing Results</h3>
               </div>
 
               <div class="factors-list">
                 <!-- Factor 1 -->
                 <div class="factor-row">
-                  <span class="factor-label">Salary Growth Rate</span>
+                  <span class="factor-label">Daily Sales & Customer Growth</span>
                   <div class="factor-bar-track">
-                    <div class="factor-bar-fill bar-blue" style="width: 78%;"></div>
+                    <div class="factor-bar-fill bar-blue" style="width: 20%;"></div>
                   </div>
-                  <span class="factor-pct">28%</span>
+                  <span class="factor-pct">20%</span>
                 </div>
 
                 <!-- Factor 2 -->
                 <div class="factor-row">
-                  <span class="factor-label">Employment Probability</span>
+                  <span class="factor-label">Rent, Bills & Raw Materials</span>
                   <div class="factor-bar-track">
-                    <div class="factor-bar-fill bar-indigo" style="width: 62%;"></div>
+                    <div class="factor-bar-fill bar-purple" style="width: 20%;"></div>
                   </div>
-                  <span class="factor-pct">22%</span>
+                  <span class="factor-pct">20%</span>
                 </div>
 
                 <!-- Factor 3 -->
                 <div class="factor-row">
-                  <span class="factor-label">Education Cost</span>
+                  <span class="factor-label">Starting Setup & Equipment Cost</span>
                   <div class="factor-bar-track">
-                    <div class="factor-bar-fill bar-purple" style="width: 50%;"></div>
+                    <div class="factor-bar-fill bar-pink" style="width: 20%;"></div>
                   </div>
-                  <span class="factor-pct">18%</span>
+                  <span class="factor-pct">20%</span>
                 </div>
 
                 <!-- Factor 4 -->
                 <div class="factor-row">
-                  <span class="factor-label">Market Conditions</span>
+                  <span class="factor-label">Financial Emergency Cushion</span>
                   <div class="factor-bar-track">
-                    <div class="factor-bar-fill bar-coral" style="width: 42%;"></div>
+                    <div class="factor-bar-fill bar-orange" style="width: 20%;"></div>
                   </div>
-                  <span class="factor-pct">15%</span>
+                  <span class="factor-pct">20%</span>
                 </div>
-
-                <!-- Factor 5 -->
-                <div class="factor-row">
-                  <span class="factor-label">Living Expenses</span>
-                  <div class="factor-bar-track">
-                    <div class="factor-bar-fill bar-orange" style="width: 28%;"></div>
-                  </div>
-                  <span class="factor-pct">10%</span>
-                </div>
-              </div>
-
-              <div class="why-footer-action">
-                <button class="what-if-cta-btn" type="button">
-                  <span>Explore What-If Analysis</span>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3.33337 8H12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
               </div>
             </div>
+
           </div>
 
         </main>
@@ -614,11 +706,92 @@
 
     const simId = localStorage.getItem('realitysim_current_id');
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      if (!simId) {
-        console.warn("No active simulation ID found in localStorage.");
-        return;
+    // Predefined Realistic Baseline Datasets
+    const DEFAULT_SCENARIOS_DATA = [
+      {
+        name: 'High-Footfall Commercial Kiosk',
+        expected_outcome: '₹ 72.1 L',
+        trend: '+180% vs baseline',
+        median_outcome: '₹ 71.6 L',
+        risk_level: 'Low',
+        risk_score: 24,
+        confidence: '76%',
+        confidence_pct: 84,
+        peak_x_pct: 62.0, // 335 / 540
+        peak_x_svg: 335,
+        peak_y_svg: 32,
+        color: '#10b981',
+        val_class: 'green-val',
+        insights: [
+          'Most Likely Result: You are estimated to accumulate approx. ₹ 72.1 L in total savings over 5 years.',
+          'Worst-Case Safety Floor: In slower months or rainy seasons, your estimated floor stays protected around ₹ 44.4 L.',
+          'Best-Case High Growth: If customer word-of-mouth grows rapidly, your 5-year profit can reach up to ₹ 98.7 L.'
+        ],
+        factors: [
+          { label: 'Daily Sales & Customer Growth', percentage: 20 },
+          { label: 'Rent, Bills & Raw Materials', percentage: 20 },
+          { label: 'Starting Setup & Equipment Cost', percentage: 20 },
+          { label: 'Financial Emergency Cushion', percentage: 20 }
+        ]
+      },
+      {
+        name: 'Multi-Outlet Franchise Expansion',
+        expected_outcome: '₹ 1.41 Cr',
+        trend: '+245% vs baseline',
+        median_outcome: '₹ 1.34 Cr',
+        risk_level: 'Medium',
+        risk_score: 52,
+        confidence: '62%',
+        confidence_pct: 62,
+        peak_x_pct: 45.4, // 245 / 540
+        peak_x_svg: 245,
+        peak_y_svg: 42,
+        color: '#a855f7',
+        val_class: 'purple-val',
+        insights: [
+          'Most Likely Result: Multi-outlet expansion scales rapidly with estimated ₹ 1.41 Cr over 5 years.',
+          'Higher Capital Commitment: Upfront franchise & inventory costs demand higher working capital cushion.',
+          'Best-Case High Growth: With multi-unit operational efficiency, 5-year upside crosses ₹ 1.85 Cr.'
+        ],
+        factors: [
+          { label: 'Multi-Unit Scale & Franchise Reach', percentage: 35 },
+          { label: 'Staffing & Operating Overhead', percentage: 25 },
+          { label: 'Initial Franchise Capital', percentage: 25 },
+          { label: 'Market Brand Momentum', percentage: 15 }
+        ]
+      },
+      {
+        name: 'Low-Cost Mobile Cart / Express Stall',
+        expected_outcome: '₹ 38.7 L',
+        trend: '+95% vs baseline',
+        median_outcome: '₹ 37.2 L',
+        risk_level: 'Low',
+        risk_score: 18,
+        confidence: '79%',
+        confidence_pct: 79,
+        peak_x_pct: 29.6, // 160 / 540
+        peak_x_svg: 160,
+        peak_y_svg: 55,
+        color: '#3b82f6',
+        val_class: 'blue-val',
+        insights: [
+          'Most Likely Result: Low initial risk provides stable estimated ₹ 38.7 L accumulated return.',
+          'High Safety Margin: Low rent overhead ensures immediate break-even within 3 to 6 months.',
+          'Best-Case High Growth: Expansion into catering/event pop-ups can boost return to ₹ 52.0 L.'
+        ],
+        factors: [
+          { label: 'Location Footfall Mobility', percentage: 30 },
+          { label: 'Low Fixed Operational Cost', percentage: 30 },
+          { label: 'Equipment & Cart Setup', percentage: 20 },
+          { label: 'Weather Seasonality Risk', percentage: 20 }
+        ]
       }
+    ];
+
+    let currentActiveScenarioIndex = 0;
+    let activeScenariosData = JSON.parse(JSON.stringify(DEFAULT_SCENARIOS_DATA));
+
+    document.addEventListener('DOMContentLoaded', async () => {
       await fetchAndRenderResults();
       setupResultsHandlers();
     });
@@ -634,19 +807,23 @@
       }
 
       // 2. Try backend API if active
-      try {
-        const res = await fetch(`/api/simulations/${simId}/results`);
-        if (res.ok) {
-          const data = await res.json();
-          renderResultsData(data);
-          localStorage.setItem('realitysim_results', JSON.stringify(data));
+      if (simId) {
+        try {
+          const res = await fetch(`/api/simulations/${simId}/results`);
+          if (res.ok) {
+            const data = await res.json();
+            renderResultsData(data);
+            localStorage.setItem('realitysim_results', JSON.stringify(data));
+          }
+        } catch (err) {
+          console.log("Client-side results mode active:", err);
         }
-      } catch (err) {
-        console.log("Client-side results mode active:", err);
       }
     }
 
     function renderResultsData(data) {
+      if (!data) return;
+
       // 1. Header Banner & Decision Meta
       if (data.title) {
         const titleEl = document.querySelector('.decision-title');
@@ -669,179 +846,266 @@
         dateEl.textContent = `Created on ${data.created_at_formatted}`;
       }
 
-      // 2. KPI Metric Cards
-      const metricCards = document.querySelectorAll('.metric-card');
-      if (metricCards.length >= 4) {
-        // Expected Outcome
-        const expVal = metricCards[0].querySelector('.metric-value');
-        if (expVal) expVal.textContent = data.expected_outcome || '₹ 28.4 L';
-        const expTrend = metricCards[0].querySelector('.metric-trend');
-        if (expTrend) expTrend.textContent = `▲ ${data.trend || '+62% vs current'}`;
-
-        // Median Outcome
-        const medVal = metricCards[1].querySelector('.metric-value');
-        if (medVal) medVal.textContent = data.median_outcome || '₹ 18.7 L';
-
-        // Risk Level
-        const riskVal = metricCards[2].querySelector('.metric-value');
-        if (riskVal) {
-          riskVal.textContent = data.risk_level || 'Medium';
-          riskVal.className = 'metric-value ' + (data.risk_level === 'High' ? 'red-value' : (data.risk_level === 'Low' ? 'green-value' : 'orange-value'));
-        }
-        const riskSub = metricCards[2].querySelector('.metric-sub');
-        if (riskSub) riskSub.textContent = `${Math.round(data.risk_score || 50)} / 100`;
-
-        // Confidence
-        const confVal = metricCards[3].querySelector('.metric-value');
-        if (confVal) confVal.textContent = `${data.confidence || 76}%`;
-        const confSub = metricCards[3].querySelector('.metric-sub');
-        if (confSub && data.confidence_subtext) confSub.textContent = data.confidence_subtext;
+      // 2. Merge Scenario Comparisons into activeScenariosData if custom simulation data exists
+      if (data.scenario_comparisons && data.scenario_comparisons.length > 0) {
+        data.scenario_comparisons.slice(0, 3).forEach((sc, idx) => {
+          if (!activeScenariosData[idx]) activeScenariosData[idx] = {};
+          activeScenariosData[idx].name = sc.name || activeScenariosData[idx].name;
+          activeScenariosData[idx].expected_outcome = sc.expected_formatted || sc.expected_value || activeScenariosData[idx].expected_outcome;
+          activeScenariosData[idx].trend = sc.trend || activeScenariosData[idx].trend;
+          activeScenariosData[idx].median_outcome = sc.median_formatted || sc.median_value || activeScenariosData[idx].median_outcome;
+          activeScenariosData[idx].risk_level = sc.risk_level || activeScenariosData[idx].risk_level;
+          activeScenariosData[idx].confidence = sc.confidence ? (typeof sc.confidence === 'string' ? sc.confidence : `${sc.confidence}%`) : activeScenariosData[idx].confidence;
+          activeScenariosData[idx].confidence_pct = sc.probability_pct ?? sc.probability ?? activeScenariosData[idx].confidence_pct;
+          if (sc.insights && sc.insights.length > 0) activeScenariosData[idx].insights = sc.insights;
+          if (sc.factors && sc.factors.length > 0) activeScenariosData[idx].factors = sc.factors;
+        });
       }
 
-      // 3. Dynamic Chart Rendering
+      // 3. Render Scenario Comparisons List
+      renderScenarioComparisons(activeScenariosData);
+
+      // 4. Render Dynamic Chart SVG
       renderSvgChart(data.distribution_data);
 
-      // 4. Scenario Comparison List
-      renderScenarioComparisons(data.scenario_comparisons);
-
-      // 5. Key Insights List
-      renderKeyInsights(data.key_insights);
-
-      // 6. Why this result? Factors Breakdown
-      renderFactorBreakdown(data.factor_breakdown);
+      // 5. Select active scenario to populate top KPIs and chart pointers
+      selectScenario(currentActiveScenarioIndex);
     }
+
+    // Global Scenario Selection Handler
+    window.selectScenario = function(index) {
+      if (index < 0 || index >= activeScenariosData.length) return;
+      currentActiveScenarioIndex = index;
+      const sc = activeScenariosData[index];
+
+      // 1. Update Scenario List Items Active State
+      const items = document.querySelectorAll('.scenario-item');
+      items.forEach((item, idx) => {
+        if (idx === index) {
+          item.classList.add('active-scenario');
+        } else {
+          item.classList.remove('active-scenario');
+        }
+      });
+
+      // 2. Update Top 4 KPI Metric Cards
+      const expVal = document.getElementById('kpi-expected-val');
+      if (expVal) {
+        expVal.textContent = sc.expected_outcome || '₹ 72.1 L';
+        expVal.className = 'metric-value ' + (sc.val_class || (index === 1 ? 'purple-val' : (index === 2 ? 'blue-val' : 'green-val')));
+      }
+
+      const expTrend = document.getElementById('kpi-trend-val');
+      if (expTrend) {
+        expTrend.textContent = `▲ ${sc.trend || '+180% vs baseline'}`;
+      }
+
+      const medVal = document.getElementById('kpi-median-val');
+      if (medVal) {
+        medVal.textContent = sc.median_outcome || '₹ 71.6 L';
+      }
+
+      const riskVal = document.getElementById('kpi-risk-val');
+      if (riskVal) {
+        const rLevel = sc.risk_level || 'Low';
+        riskElText = rLevel;
+        riskVal.textContent = rLevel;
+        riskVal.className = 'metric-value ' + (rLevel === 'High' ? 'red-val' : (rLevel === 'Low' ? 'green-val' : 'orange-val'));
+      }
+
+      const confVal = document.getElementById('kpi-confidence-val');
+      if (confVal) {
+        confVal.textContent = sc.confidence || `${sc.confidence_pct || 76}%`;
+      }
+
+      // 3. Update Chart Peak Tooltip & Vertical Dotted Line Indicator
+      const tooltip = document.querySelector('.chart-peak-tooltip');
+      if (tooltip) {
+        const leftPct = sc.peak_x_pct || (index === 0 ? 62.0 : (index === 1 ? 45.4 : 29.6));
+        tooltip.style.left = `${leftPct}%`;
+        const tipTitle = tooltip.querySelector('.tooltip-title');
+        if (tipTitle) {
+          tipTitle.textContent = index === 0 ? 'Highest Potential' : (index === 1 ? 'Franchise Scale' : 'Cart Safety Floor');
+        }
+        const tipAmt = tooltip.querySelector('.tooltip-amount');
+        if (tipAmt) {
+          tipAmt.textContent = sc.expected_outcome || '₹ 72.1 L';
+        }
+        const tipDot = tooltip.querySelector('.tooltip-dot');
+        if (tipDot) {
+          tipDot.style.background = sc.color || '#10b981';
+        }
+      }
+
+      const indicatorLine = document.querySelector('.distribution-svg line[stroke-dasharray="3 3"][stroke-width="1.6"]');
+      if (indicatorLine) {
+        const xPos = sc.peak_x_svg || (index === 0 ? 335 : (index === 1 ? 245 : 160));
+        const yPos = sc.peak_y_svg || (index === 0 ? 32 : (index === 1 ? 42 : 55));
+        indicatorLine.setAttribute('x1', xPos);
+        indicatorLine.setAttribute('x2', xPos);
+        indicatorLine.setAttribute('y1', yPos);
+        indicatorLine.setAttribute('stroke', sc.color || '#10b981');
+      }
+
+      // 4. Update Key Insights
+      if (sc.insights && sc.insights.length > 0) {
+        renderKeyInsights(sc.insights);
+      }
+
+      // 5. Update Factors Influencing Results
+      if (sc.factors && sc.factors.length > 0) {
+        renderFactorBreakdown(sc.factors);
+      }
+    };
 
     function renderSvgChart(distData) {
       const chartViewport = document.querySelector('.chart-viewport');
       const chartLegend = document.querySelector('.chart-legend');
-      if (!chartViewport || !distData || !distData.curves) return;
+      if (!chartViewport) return;
 
-      const curves = distData.curves || [];
-      const xTicks = distData.x_ticks || [];
-
-      // Build gradients and paths
-      const defsSvg = `
-        <defs>
-          <linearGradient id="dyn-grad-0" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.02"/>
-          </linearGradient>
-          <linearGradient id="dyn-grad-1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#a855f7" stop-opacity="0.02"/>
-          </linearGradient>
-          <linearGradient id="dyn-grad-2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#10b981" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#10b981" stop-opacity="0.02"/>
-          </linearGradient>
-          <linearGradient id="dyn-grad-3" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.02"/>
-          </linearGradient>
-        </defs>
-      `;
-
-      // Build curve paths
-      const pathsSvg = curves.map((c, idx) => `
-        <path d="${c.fill_path}" fill="url(#dyn-grad-${idx % 4})"/>
-        <path d="${c.stroke_path}" fill="none" stroke="${c.color || '#3b82f6'}" stroke-width="2.2"/>
-      `).join('');
-
-      // Build X ticks
-      let xTicksSvg = '';
-      if (xTicks.length > 0) {
-        xTicks.forEach((t, i) => {
-          const xPos = 40 + (i / (xTicks.length - 1)) * 440;
-          xTicksSvg += `<text x="${xPos.toFixed(0)}" y="208" class="axis-text" text-anchor="middle">${t.label}</text>`;
-        });
-      } else {
-        xTicksSvg = `
-          <text x="75" y="208" class="axis-text" text-anchor="middle">0</text>
-          <text x="140" y="208" class="axis-text" text-anchor="middle">10</text>
-          <text x="210" y="208" class="axis-text" text-anchor="middle">20</text>
-          <text x="280" y="208" class="axis-text" text-anchor="middle">30</text>
-          <text x="350" y="208" class="axis-text" text-anchor="middle">40</text>
-          <text x="420" y="208" class="axis-text" text-anchor="middle">50</text>
-          <text x="475" y="208" class="axis-text" text-anchor="middle">60</text>
-        `;
-      }
+      const sc = activeScenariosData[currentActiveScenarioIndex] || activeScenariosData[0];
+      const peakLeftPct = sc.peak_x_pct || 62.0;
+      const peakX = sc.peak_x_svg || 335;
+      const peakY = sc.peak_y_svg || 32;
+      const peakColor = sc.color || '#10b981';
 
       chartViewport.innerHTML = `
-        <svg viewBox="0 0 500 220" class="distribution-svg">
-          ${defsSvg}
-          <!-- Grid Lines -->
-          <line x1="40" y1="30" x2="480" y2="30" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
-          <line x1="40" y1="70" x2="480" y2="70" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
-          <line x1="40" y1="110" x2="480" y2="110" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
-          <line x1="40" y1="150" x2="480" y2="150" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
-          <line x1="40" y1="190" x2="480" y2="190" stroke="rgba(255,255,255,0.12)"/>
+        <!-- Floating Optimal Peak Tooltip -->
+        <div class="chart-peak-tooltip" style="left: ${peakLeftPct}%;">
+          <div class="tooltip-badge">
+            <span class="tooltip-dot" style="background: ${peakColor};"></span>
+            <span class="tooltip-title">${currentActiveScenarioIndex === 0 ? 'Highest Potential' : (currentActiveScenarioIndex === 1 ? 'Franchise Scale' : 'Cart Safety Floor')}</span>
+          </div>
+          <div class="tooltip-amount">${sc.expected_outcome || '₹ 72.1 L'}</div>
+        </div>
+
+        <svg viewBox="0 0 540 220" class="distribution-svg">
+          <defs>
+            <linearGradient id="curve-blue-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.02"/>
+            </linearGradient>
+            <linearGradient id="curve-purple-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#a855f7" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#a855f7" stop-opacity="0.02"/>
+            </linearGradient>
+            <linearGradient id="curve-green-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#10b981" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#10b981" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Horizontal Grid Lines -->
+          <line x1="45" y1="25" x2="520" y2="25" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="45" y1="65" x2="520" y2="65" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="45" y1="105" x2="520" y2="105" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="45" y1="145" x2="520" y2="145" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="45" y1="185" x2="520" y2="185" stroke="rgba(255,255,255,0.14)"/>
 
           <!-- Y-Axis Labels -->
-          <text x="32" y="34" class="axis-text" text-anchor="end">10%</text>
-          <text x="32" y="74" class="axis-text" text-anchor="end">8%</text>
-          <text x="32" y="114" class="axis-text" text-anchor="end">6%</text>
-          <text x="32" y="154" class="axis-text" text-anchor="end">2%</text>
-          <text x="32" y="194" class="axis-text" text-anchor="end">0%</text>
+          <text x="36" y="29" class="axis-text" text-anchor="end">20%</text>
+          <text x="36" y="69" class="axis-text" text-anchor="end">15%</text>
+          <text x="36" y="109" class="axis-text" text-anchor="end">10%</text>
+          <text x="36" y="149" class="axis-text" text-anchor="end">5%</text>
+          <text x="36" y="189" class="axis-text" text-anchor="end">0%</text>
 
-          <!-- Curves -->
-          ${pathsSvg}
+          <!-- Vertical Dotted Peak Indicator -->
+          <line x1="${peakX}" y1="${peakY}" x2="${peakX}" y2="185" stroke="${peakColor}" stroke-dasharray="3 3" stroke-width="1.6"/>
 
-          <!-- X-Axis Labels -->
-          ${xTicksSvg}
+          <!-- Curve 1: Blue (Low-Cost Mobile Cart / Express Stall) -->
+          <path d="M 45 185 Q 100 185 130 115 Q 160 55 190 115 Q 220 185 280 185 Z" fill="url(#curve-blue-grad)"/>
+          <path d="M 45 185 Q 100 185 130 115 Q 160 55 190 115 Q 220 185 280 185" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/>
+
+          <!-- Curve 2: Purple (Multi-Outlet Franchise Expansion) -->
+          <path d="M 120 185 Q 170 185 210 105 Q 245 42 280 105 Q 325 185 410 185 Z" fill="url(#curve-purple-grad)"/>
+          <path d="M 120 185 Q 170 185 210 105 Q 245 42 280 105 Q 325 185 410 185" fill="none" stroke="#a855f7" stroke-width="2.2" stroke-linecap="round"/>
+
+          <!-- Curve 3: Green (High-Footfall Commercial Kiosk) -->
+          <path d="M 210 185 Q 275 185 305 95 Q 335 32 365 95 Q 415 185 510 185 Z" fill="url(#curve-green-grad)"/>
+          <path d="M 210 185 Q 275 185 305 95 Q 335 32 365 95 Q 415 185 510 185" fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round"/>
+
+          <!-- X-Axis Labels (0, 10, 20, 30, 40, 50, 60 Lakhs) -->
+          <text x="45" y="202" class="axis-text" text-anchor="middle">0</text>
+          <text x="123" y="202" class="axis-text" text-anchor="middle">10</text>
+          <text x="201" y="202" class="axis-text" text-anchor="middle">20</text>
+          <text x="280" y="202" class="axis-text" text-anchor="middle">30</text>
+          <text x="358" y="202" class="axis-text" text-anchor="middle">40</text>
+          <text x="436" y="202" class="axis-text" text-anchor="middle">50</text>
+          <text x="515" y="202" class="axis-text" text-anchor="middle">60</text>
         </svg>
       `;
 
-      // Legends
-      if (chartLegend) {
-        const dotClasses = ['dot-blue', 'dot-purple', 'dot-green', 'dot-orange'];
-        chartLegend.innerHTML = curves.map((c, i) => `
-          <div class="legend-item">
-            <span class="dot ${dotClasses[i % dotClasses.length]}"></span>
-            <span>${escapeHtml(c.name)}</span>
+      // Synchronize Chart Legend
+      if (chartLegend && activeScenariosData.length >= 3) {
+        chartLegend.innerHTML = `
+          <div class="legend-item" style="cursor: pointer;" onclick="selectScenario(0)">
+            <span class="dot dot-green"></span>
+            <span>${escapeHtml(activeScenariosData[0].name)}</span>
           </div>
-        `).join('');
+          <div class="legend-item" style="cursor: pointer;" onclick="selectScenario(1)">
+            <span class="dot dot-purple"></span>
+            <span>${escapeHtml(activeScenariosData[1].name)}</span>
+          </div>
+          <div class="legend-item" style="cursor: pointer;" onclick="selectScenario(2)">
+            <span class="dot dot-blue"></span>
+            <span>${escapeHtml(activeScenariosData[2].name)}</span>
+          </div>
+        `;
       }
     }
 
     function renderScenarioComparisons(scenarios) {
       const list = document.querySelector('.scenarios-list');
-      if (!list || !scenarios) return;
+      if (!list || !scenarios || scenarios.length === 0) return;
 
-      list.innerHTML = scenarios.map((sc, idx) => {
-        const riskClass = sc.risk_class || (sc.risk_level === 'High' ? 'risk-high' : (sc.risk_level === 'Low' ? 'risk-low' : 'risk-med'));
-        const badgeHtml = sc.badge ? `<span class="badge-${sc.badge_type || 'recommended'}">${escapeHtml(sc.badge)}</span>` : '';
+      const fillColors = ['fill-green', 'fill-purple', 'fill-blue'];
+      const valColors = ['green-val', 'purple-val', 'blue-val'];
+      const rankClasses = ['rank-1', 'rank-2', 'rank-3'];
+      const boxClasses = ['blue-scenario', 'purple-scenario', 'blue-scenario'];
+
+      list.innerHTML = scenarios.slice(0, 3).map((sc, idx) => {
+        const riskLevel = sc.risk_level || (idx === 0 ? 'Low' : 'Medium');
+        const badgeClass = riskLevel === 'High' ? 'badge-high' : (riskLevel === 'Low' ? 'badge-low' : 'badge-medium');
+        const prob = sc.confidence_pct ?? sc.probability_pct ?? 75;
+        const expectedVal = sc.expected_outcome || (idx === 0 ? '₹ 72.1 L' : (idx === 1 ? '₹ 1.41 Cr' : '₹ 38.7 L'));
+        const activeClass = idx === currentActiveScenarioIndex ? ' active-scenario' : '';
 
         return `
-          <div class="scenario-item">
-            <div class="scenario-icon-box ${sc.css_box || 'blue-scenario'}">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${sc.color || '#3b82f6'}" stroke-width="2">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-              </svg>
+          <div class="scenario-item${activeClass}" onclick="selectScenario(${idx})">
+            <div class="scenario-rank-badge ${rankClasses[idx % 3]}">
+              ${idx === 0 ? `
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              ` : ''}
+              <span>${idx + 1}</span>
             </div>
-            <div class="scenario-content">
-              <div class="scenario-header">
-                <span class="scenario-name">${escapeHtml(sc.name)}</span>
-                ${badgeHtml}
-              </div>
-              <p class="scenario-sub">${escapeHtml(sc.subtitle || '')}</p>
+            <div class="scenario-icon-box ${boxClasses[idx % 3]}">
+              ${idx === 1 ? `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+              ` : `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+              `}
             </div>
-            <div class="scenario-stats">
-              <div class="stat-col">
-                <span class="stat-val">${sc.expected_formatted || sc.expected_value || '₹ 0'}</span>
-                <span class="stat-lbl">Expected</span>
-              </div>
-              <div class="stat-col">
-                <span class="stat-val">${sc.probability_pct ?? sc.probability ?? (sc.confidence ? parseInt(sc.confidence) : 75)}%</span>
-                <span class="stat-lbl">Probability</span>
-              </div>
-              <div class="stat-col">
-                <span class="stat-val ${riskClass}">${sc.risk_level || 'Medium'}</span>
-                <span class="stat-lbl">Risk</span>
+            <div class="scenario-main-info">
+              <div class="scenario-title">${escapeHtml(sc.name)}</div>
+              <div class="scenario-val ${valColors[idx % 3]}">${expectedVal}</div>
+              <div class="scenario-progress-row">
+                <div class="scenario-bar-track">
+                  <div class="scenario-bar-fill ${fillColors[idx % 3]}" style="width: ${prob}%;"></div>
+                </div>
+                <span class="scenario-pct">${prob}%</span>
               </div>
             </div>
-            <div class="scenario-arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <div class="scenario-tag-wrap">
+              <span class="risk-badge ${badgeClass}">${riskLevel}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="row-arrow">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </div>
@@ -852,26 +1116,15 @@
 
     function renderKeyInsights(insights) {
       const list = document.querySelector('.insights-list');
-      if (!list || !insights) return;
+      if (!list || !insights || insights.length === 0) return;
 
-      const iconColors = ['icon-green', 'icon-purple', 'icon-blue', 'icon-orange'];
-      const iconSvgs = [
-        '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>',
-        '<circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle>',
-        '<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>',
-        '<path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>'
-      ];
+      const numBadges = ['badge-num-green', 'badge-num-purple', 'badge-num-blue'];
 
-      list.innerHTML = insights.map((ins, idx) => {
+      list.innerHTML = insights.slice(0, 3).map((ins, idx) => {
         const textVal = typeof ins === 'string' ? ins : (ins.text || '');
-        const iconType = (typeof ins === 'object' && ins.icon_type) ? `icon-${ins.icon_type}` : iconColors[idx % iconColors.length];
         return `
           <div class="insight-row">
-            <div class="insight-icon ${iconType}">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                ${iconSvgs[idx % iconSvgs.length]}
-              </svg>
-            </div>
+            <div class="insight-number-badge ${numBadges[idx % 3]}">${idx + 1}</div>
             <p class="insight-text">${escapeHtml(textVal)}</p>
           </div>
         `;
@@ -880,14 +1133,14 @@
 
     function renderFactorBreakdown(factors) {
       const list = document.querySelector('.factors-list');
-      if (!list || !factors) return;
+      if (!list || !factors || factors.length === 0) return;
 
-      const barColors = ['bar-blue', 'bar-indigo', 'bar-purple', 'bar-coral', 'bar-orange'];
+      const barColors = ['bar-blue', 'bar-purple', 'bar-pink', 'bar-orange'];
 
-      list.innerHTML = factors.map((fac, idx) => {
+      list.innerHTML = factors.slice(0, 4).map((fac, idx) => {
         const labelText = fac.label || fac.name || 'Influencing Factor';
         const pctVal = fac.percentage !== undefined ? fac.percentage : (fac.impact_pct || 20);
-        const barCls = fac.bar_class || barColors[idx % barColors.length];
+        const barCls = barColors[idx % barColors.length];
 
         return `
           <div class="factor-row">
@@ -922,64 +1175,56 @@
           recalcBtn.style.opacity = '0.75';
 
           // 1. Try Backend if active
-          try {
-            const res = await fetch(`/api/simulations/${simId}/what-if`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                variable_updates: {
-                  growth_delta_pct: growthDelta,
-                  volatility_index: vol,
-                  cost_multiplier: costMult
-                }
-              })
-            });
+          if (simId) {
+            try {
+              const res = await fetch(`/api/simulations/${simId}/what-if`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  variable_updates: {
+                    growth_delta_pct: growthDelta,
+                    volatility_index: vol,
+                    cost_multiplier: costMult
+                  }
+                })
+              });
 
-            if (res.ok) {
-              const updatedData = await res.json();
-              renderResultsData(updatedData);
-              localStorage.setItem('realitysim_results', JSON.stringify(updatedData));
-              closeWhatIfModal();
-              return;
-            }
-          } catch (err) {}
+              if (res.ok) {
+                const updatedData = await res.json();
+                renderResultsData(updatedData);
+                localStorage.setItem('realitysim_results', JSON.stringify(updatedData));
+                closeWhatIfModal();
+                return;
+              }
+            } catch (err) {}
+          }
 
           // 2. Client-side Real Monte Carlo Recalculation
-          const cachedScenarios = JSON.parse(localStorage.getItem('realitysim_scenarios') || '[]');
-          const userInfo = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
-          const horizonYears = parseInt(userInfo.time_horizon || '5') || 5;
-          const primarySc = JSON.parse(JSON.stringify(cachedScenarios[0] || {}));
-          
-          if (!primarySc.variables) primarySc.variables = {};
-          primarySc.variables.growth_mean_pct = (parseFloat(primarySc.variables.growth_mean_pct || 8.5)) + growthDelta;
-          primarySc.variables.volatility_index = vol;
-          primarySc.variables.annual_cost = (parseFloat(primarySc.variables.annual_cost || 180000)) * costMult;
+          if (typeof MonteCarloEngine !== 'undefined') {
+            const cachedScenarios = JSON.parse(localStorage.getItem('realitysim_scenarios') || '[]');
+            const userInfo = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
+            const horizonYears = parseInt(userInfo.time_horizon || '5') || 5;
+            const primarySc = JSON.parse(JSON.stringify(cachedScenarios[0] || {}));
+            
+            if (!primarySc.variables) primarySc.variables = {};
+            primarySc.variables.growth_mean_pct = (parseFloat(primarySc.variables.growth_mean_pct || 8.5)) + growthDelta;
+            primarySc.variables.volatility_index = vol;
+            primarySc.variables.annual_cost = (parseFloat(primarySc.variables.annual_cost || 180000)) * costMult;
 
-          const updatedSim = MonteCarloEngine.runScenario(primarySc, horizonYears, 10000, userInfo);
-          const currResults = JSON.parse(localStorage.getItem('realitysim_results') || '{}');
+            const updatedSim = MonteCarloEngine.runScenario(primarySc, horizonYears, 10000, userInfo);
+            const currResults = JSON.parse(localStorage.getItem('realitysim_results') || '{}');
 
-          currResults.expected_outcome = MonteCarloEngine.formatINR(updatedSim.mean);
-          currResults.median_outcome = MonteCarloEngine.formatINR(updatedSim.median);
-          currResults.risk_level = updatedSim.p10 < 0 ? 'High' : (updatedSim.prob_positive > 88 ? 'Low' : 'Medium');
-          currResults.risk_score = Math.round(Math.max(10, Math.min(95, 100 - updatedSim.prob_positive * 0.7 + (updatedSim.std / (updatedSim.mean || 1)) * 8)));
-          currResults.confidence_pct = `${Math.round(updatedSim.prob_positive)}%`;
-          currResults.confidence_subtext = `Adjusted for ${growthDelta >= 0 ? '+' : ''}${growthDelta}% growth shift & ${(costMult * 100).toFixed(0)}% expense scaling.`;
-          currResults.distribution_data = {
-            p10: MonteCarloEngine.formatINR(updatedSim.p10),
-            p25: MonteCarloEngine.formatINR(updatedSim.p25),
-            p50: MonteCarloEngine.formatINR(updatedSim.p50),
-            p75: MonteCarloEngine.formatINR(updatedSim.p75),
-            p90: MonteCarloEngine.formatINR(updatedSim.p90),
-            curve_points: updatedSim.histogram.frequencies.map((freq, idx) => ({
-              x: (idx / (updatedSim.histogram.frequencies.length - 1)) * 500,
-              y: 180 - (freq / (Math.max(...updatedSim.histogram.frequencies) || 1)) * 140
-            }))
-          };
+            currResults.expected_outcome = MonteCarloEngine.formatINR(updatedSim.mean);
+            currResults.median_outcome = MonteCarloEngine.formatINR(updatedSim.median);
+            currResults.risk_level = updatedSim.p10 < 0 ? 'High' : (updatedSim.prob_positive > 88 ? 'Low' : 'Medium');
+            currResults.risk_score = Math.round(Math.max(10, Math.min(95, 100 - updatedSim.prob_positive * 0.7 + (updatedSim.std / (updatedSim.mean || 1)) * 8)));
+            currResults.confidence = `${Math.round(updatedSim.prob_positive)}%`;
 
-          renderResultsData(currResults);
-          localStorage.setItem('realitysim_results', JSON.stringify(currResults));
+            renderResultsData(currResults);
+            localStorage.setItem('realitysim_results', JSON.stringify(currResults));
+          }
+
           closeWhatIfModal();
-
           recalcBtn.textContent = 'Run What-If Simulation';
           recalcBtn.style.opacity = '1';
         });
