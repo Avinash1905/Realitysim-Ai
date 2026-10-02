@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RealitySim AI - Simulation Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="results.css">
+</head>
+<body>
+  <!-- Fixed Background Video -->
+  <div class="video-container">
+    <video
+      id="bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260629_021419_291eb2af-5ed4-45a0-a1d6-3ef58f4bca0b.mp4">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260629_021419_291eb2af-5ed4-45a0-a1d6-3ef58f4bca0b.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- Main Dashboard App Shell -->
+  <div class="app-layout">
+    <!-- Glassmorphic Container -->
+    <div class="dashboard-shell">
+      
+      <!-- Top Navigation Bar -->
+      <header class="top-nav">
+        <div class="brand-area">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="url(#brand-grad)" stroke-width="2.5" stroke-dasharray="28 14"/>
+                <circle cx="12" cy="12" r="4" fill="url(#brand-grad)"/>
+                <defs>
+                  <linearGradient id="brand-grad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#3b82f6"/>
+                    <stop offset="1" stop-color="#8b5cf6"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <span class="brand-name">RealitySim <span class="brand-ai">AI</span></span>
+          </a>
+        </div>
+
+        <!-- 1 2 3 4 Checkpoints Stepper -->
+        <div class="stepper-nav">
+          <a href="index.html" class="step-item completed">
+            <span class="step-badge check-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <span class="step-title">Decision Input</span>
+          </a>
+          <div class="step-divider active-divider"></div>
+
+          <a href="additional-info.html" class="step-item completed">
+            <span class="step-badge check-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <span class="step-title">Additional Information</span>
+          </a>
+          <div class="step-divider active-divider"></div>
+
+          <a href="scenarios.html" class="step-item completed">
+            <span class="step-badge check-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <span class="step-title">Scenarios</span>
+          </a>
+          <div class="step-divider active-divider"></div>
+
+          <div class="step-item active">
+            <span class="step-badge num-badge">4</span>
+            <span class="step-title">Simulation & Results</span>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <a href="index.html#prompt-section" class="btn-new-sim">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>New Simulation</span>
+          </a>
+          <div class="user-avatar" title="Account Settings">A</div>
+        </div>
+      </header>
+
+      <!-- Dashboard Body Grid -->
+      <div class="dashboard-body">
+        
+        <!-- Main Dashboard Viewport -->
+        <main class="main-viewport">
+          
+          <!-- Header Banner & Decision Meta -->
+          <div class="header-banner">
+            <div class="results-header-text">
+              <h1 class="page-title">Simulation Results</h1>
+              <p class="page-subtitle">Here are the possible outcomes for your decision.</p>
+            </div>
+
+            <div class="decision-meta-card">
+              <div class="decision-meta-left">
+                <div class="decision-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </div>
+                <div class="decision-details">
+                  <div class="decision-title-row">
+                    <span class="decision-title">Job vs Master's Degree</span>
+                    <span class="category-badge">Career</span>
+                  </div>
+                  <p class="decision-query">
+                    I am deciding whether to take a software job after B.Tech or pursue a master's degree. Compare the possible outcomes over 5 years.
+                  </p>
+                </div>
+              </div>
+              
+              <div class="decision-meta-right">
+                <button class="edit-btn" title="Edit Decision">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
+                <div class="meta-stat">5 years • 10,000 runs</div>
+                <div class="meta-date">Created on Oct 1, 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI Metric Cards Row -->
+          <div class="metrics-grid">
+            <!-- Card 1 -->
+            <div class="metric-card">
+              <div class="metric-icon-box blue-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-label">Expected Outcome</span>
+                <div class="metric-value">₹ 28.4 L</div>
+                <div class="metric-trend green-trend">▲ +62% vs current</div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="metric-card">
+              <div class="metric-icon-box purple-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-label">Median Outcome</span>
+                <div class="metric-value">₹ 18.7 L</div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="metric-card">
+              <div class="metric-icon-box orange-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-label">Risk Level</span>
+                <div class="metric-value orange-value">Medium</div>
+                <div class="metric-sub">54 / 100</div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="metric-card">
+              <div class="metric-icon-box violet-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="6"></circle>
+                  <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-label">Confidence</span>
+                <div class="metric-value">76%</div>
+                <div class="metric-sub">Based on available data</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Section: Scenario Comparison -->
+          <div class="card panel-card">
+            <div class="card-header">
+              <h3 class="card-title">Scenario Comparison</h3>
+            </div>
+
+              <div class="scenarios-list">
+                <!-- Scenario 1 -->
+                <div class="scenario-item">
+                  <div class="scenario-icon-box blue-scenario">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                  </div>
+                  <div class="scenario-content">
+                    <div class="scenario-header">
+                      <span class="scenario-name">Job (Immediate)</span>
+                      <span class="badge-recommended">Recommended</span>
+                    </div>
+                    <p class="scenario-sub">Start a software job after B.Tech.</p>
+                  </div>
+                  <div class="scenario-stats">
+                    <div class="stat-col">
+                      <span class="stat-val">₹ 22.6 L</span>
+                      <span class="stat-lbl">Expected</span>
+                    </div>
+                    <div class="stat-col">
+                      <span class="stat-val">72%</span>
+                      <span class="stat-lbl">Probability</span>
+                    </div>
+                    <div class="stat-col">
+                      <span class="stat-val risk-med">Medium</span>
+                      <span class="stat-lbl">Risk</span>
+                    </div>
+                  </div>
+                  <div class="scenario-arrow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Scenario 2 -->
+                <div class="scenario-item">
+                  <div class="scenario-icon-box purple-scenario">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                      <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                  </div>
+                  <div class="scenario-content">
+                    <div class="scenario-header">
+                      <span class="scenario-name">Master's Degree</span>
+                    </div>
+                    <p class="scenario-sub">Pursue a master's degree with education costs and future growth.</p>
+                  </div>
+                  <div class="scenario-stats">
+                    <div class="stat-col">
+                      <span class="stat-val">₹ 26.1 L</span>
+                      <span class="stat-lbl">Expected</span>
+                    </div>
+                    <div class="stat-col">
+                      <span class="stat-val">64%</span>
+                      <span class="stat-lbl">Probability</span>
+                    </div>
+                    <div class="stat-col">
+                      <span class="stat-val risk-high">High</span>
+                      <span class="stat-lbl">Risk</span>
+                    </div>
+                  </div>
+                  <div class="scenario-arrow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Scenario 3 -->
+                <div class="scenario-item">
+                  <div class="scenario-icon-box green-scenario">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                  </div>
+                  <div class="scenario-content">
+                    <div class="scenario-header">
+                      <span class="scenario-name">Job + Part-time Study</span>
+                    </div>
+                    <p class="scenario-sub">Take a job and pursue higher studies part-time.</p>
+                  </div>
+                  <div class="scenario-stats">
+                    <div class="stat-col">
+                      <span class="stat-val">₹ 28.4 L</span>
+                      <span class="stat-lbl">Expected</span>
+                    </div>
+                    <div class="stat-col">
+                      <span class="stat-val">78%</span>
+                      <span class="stat-lbl">Probability</span>
+                    </div>
+                    <div class="stat-col">
+                      <span class="stat-val risk-med">Medium</span>
+                      <span class="stat-lbl">Risk</span>
+                    </div>
+                  </div>
+                  <div class="scenario-arrow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- Bottom Section: Key Insights & Why this result? -->
+          <div class="content-split-grid bottom-grid">
+            
+            <!-- Left: Key Insights -->
+            <div class="card panel-card">
+              <div class="card-header">
+                <h3 class="card-title">Key Insights</h3>
+              </div>
+
+              <div class="insights-list">
+                <div class="insight-row">
+                  <div class="insight-icon icon-green">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+                      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                      <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                    </svg>
+                  </div>
+                  <p class="insight-text">Job + Part-time Study has the highest expected outcome.</p>
+                </div>
+
+                <div class="insight-row">
+                  <div class="insight-icon icon-purple">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="6"></circle>
+                    </svg>
+                  </div>
+                  <p class="insight-text">Master's Degree shows higher risk due to education costs.</p>
+                </div>
+
+                <div class="insight-row">
+                  <div class="insight-icon icon-blue">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  </div>
+                  <p class="insight-text">Job (Immediate) has more stable outcomes with lower risk.</p>
+                </div>
+
+                <div class="insight-row">
+                  <div class="insight-icon icon-orange">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5">
+                      <path d="M9 18h6"></path>
+                      <path d="M10 22h4"></path>
+                      <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>
+                    </svg>
+                  </div>
+                  <p class="insight-text">Results are based on industry trends, education costs, inflation, and job market conditions.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Why this result? Factors -->
+            <div class="card panel-card why-result-card">
+              <div class="card-header">
+                <h3 class="card-title">Why this result?</h3>
+              </div>
+
+              <div class="factors-list">
+                <!-- Factor 1 -->
+                <div class="factor-row">
+                  <span class="factor-label">Salary Growth Rate</span>
+                  <div class="factor-bar-track">
+                    <div class="factor-bar-fill bar-blue" style="width: 78%;"></div>
+                  </div>
+                  <span class="factor-pct">28%</span>
+                </div>
+
+                <!-- Factor 2 -->
+                <div class="factor-row">
+                  <span class="factor-label">Employment Probability</span>
+                  <div class="factor-bar-track">
+                    <div class="factor-bar-fill bar-indigo" style="width: 62%;"></div>
+                  </div>
+                  <span class="factor-pct">22%</span>
+                </div>
+
+                <!-- Factor 3 -->
+                <div class="factor-row">
+                  <span class="factor-label">Education Cost</span>
+                  <div class="factor-bar-track">
+                    <div class="factor-bar-fill bar-purple" style="width: 50%;"></div>
+                  </div>
+                  <span class="factor-pct">18%</span>
+                </div>
+
+                <!-- Factor 4 -->
+                <div class="factor-row">
+                  <span class="factor-label">Market Conditions</span>
+                  <div class="factor-bar-track">
+                    <div class="factor-bar-fill bar-coral" style="width: 42%;"></div>
+                  </div>
+                  <span class="factor-pct">15%</span>
+                </div>
+
+                <!-- Factor 5 -->
+                <div class="factor-row">
+                  <span class="factor-label">Living Expenses</span>
+                  <div class="factor-bar-track">
+                    <div class="factor-bar-fill bar-orange" style="width: 28%;"></div>
+                  </div>
+                  <span class="factor-pct">10%</span>
+                </div>
+              </div>
+
+              <div class="why-footer-action">
+                <button class="what-if-cta-btn" type="button">
+                  <span>Explore What-If Analysis</span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3.33337 8H12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- What-If Analysis Modal -->
+  <div id="whatif-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Explore What-If Analysis</h3>
+        <button type="button" class="modal-close-btn" onclick="closeWhatIfModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.4;">
+          Adjust key macroeconomic and personal parameters to stress-test your decision outcomes across 10,000 Monte Carlo runs.
+        </p>
+        
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between;">
+            <label class="form-label">Annual Growth Rate Adjustment</label>
+            <span id="whatif-growth-val" style="font-size: 0.82rem; font-weight: 700; color: #60a5fa;">+0%</span>
+          </div>
+          <input type="range" id="whatif-growth-range" min="-10" max="20" value="0" step="1" class="slider-input" oninput="document.getElementById('whatif-growth-val').textContent = (this.value >= 0 ? '+' : '') + this.value + '%'">
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between;">
+            <label class="form-label">Upfront / Education Cost Multiplier</label>
+            <span id="whatif-cost-val" style="font-size: 0.82rem; font-weight: 700; color: #a855f7;">1.0x</span>
+          </div>
+          <input type="range" id="whatif-cost-range" min="0.5" max="2.5" value="1.0" step="0.1" class="slider-input" oninput="document.getElementById('whatif-cost-val').textContent = parseFloat(this.value).toFixed(1) + 'x'">
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between;">
+            <label class="form-label">Market Volatility & Uncertainty</label>
+            <span id="whatif-vol-val" style="font-size: 0.82rem; font-weight: 700; color: #f59e0b;">Baseline (0.25)</span>
+          </div>
+          <input type="range" id="whatif-vol-range" min="0.10" max="0.60" value="0.25" step="0.05" class="slider-input" oninput="document.getElementById('whatif-vol-val').textContent = parseFloat(this.value).toFixed(2)">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" onclick="closeWhatIfModal()">Close</button>
+        <button type="button" class="btn-save" id="btn-recalculate-whatif">Run What-If Simulation</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(3, 7, 18, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-card {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(15, 20, 32, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.8rem;
+    }
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.2rem;
+      transition: color 0.15s;
+    }
+    .modal-close-btn:hover { color: #ffffff; }
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .slider-input {
+      width: 100%;
+      accent-color: #3b82f6;
+      cursor: pointer;
+    }
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1rem;
+    }
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
+      padding: 0.6rem 1.1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-cancel:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+    .btn-save {
+      background: linear-gradient(110deg, #06208F 0%, #223896 35%, #515CA4 70%, #7778A4 100%);
+      border: 1px solid rgba(81, 92, 164, 0.5);
+      color: #ffffff;
+      padding: 0.6rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(6, 32, 143, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-save:hover {
+      box-shadow: 0 6px 20px rgba(6, 32, 143, 0.6);
+      transform: translateY(-1px);
+    }
+  </style>
+
+  <script>
+    // Video autoplay guarantee
+    const video = document.getElementById('bg-video');
+    if (video) {
+      video.muted = true;
+      video.play().catch(console.log);
+      window.addEventListener('click', () => { if (video.paused) video.play(); }, { once: true });
+    }
+
+    const simId = localStorage.getItem('realitysim_current_id');
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!simId) {
+        console.warn("No active simulation ID found in localStorage.");
+        return;
+      }
+      await fetchAndRenderResults();
+      setupResultsHandlers();
+    });
+
+    async function fetchAndRenderResults() {
+      try {
+        const res = await fetch(`/api/simulations/${simId}/results`);
+        if (res.ok) {
+          const data = await res.json();
+          renderResultsData(data);
+        }
+      } catch (err) {
+        console.error("Error fetching simulation results:", err);
+      }
+    }
+
+    function renderResultsData(data) {
+      // 1. Header Banner & Decision Meta
+      if (data.title) {
+        const titleEl = document.querySelector('.decision-title');
+        if (titleEl) titleEl.textContent = data.title;
+      }
+      if (data.category) {
+        const catBadge = document.querySelector('.category-badge');
+        if (catBadge) catBadge.textContent = data.category;
+      }
+      if (data.decision_prompt) {
+        const queryEl = document.querySelector('.decision-query');
+        if (queryEl) queryEl.textContent = data.decision_prompt;
+      }
+      const statEl = document.querySelector('.meta-stat');
+      if (statEl) {
+        statEl.textContent = `${data.time_horizon || '5 years'} • ${(data.runs_count || 10000).toLocaleString()} runs`;
+      }
+      const dateEl = document.querySelector('.meta-date');
+      if (dateEl && data.created_at_formatted) {
+        dateEl.textContent = `Created on ${data.created_at_formatted}`;
+      }
+
+      // 2. KPI Metric Cards
+      const metricCards = document.querySelectorAll('.metric-card');
+      if (metricCards.length >= 4) {
+        // Expected Outcome
+        const expVal = metricCards[0].querySelector('.metric-value');
+        if (expVal) expVal.textContent = data.expected_outcome || '₹ 28.4 L';
+        const expTrend = metricCards[0].querySelector('.metric-trend');
+        if (expTrend) expTrend.textContent = `▲ ${data.trend || '+62% vs current'}`;
+
+        // Median Outcome
+        const medVal = metricCards[1].querySelector('.metric-value');
+        if (medVal) medVal.textContent = data.median_outcome || '₹ 18.7 L';
+
+        // Risk Level
+        const riskVal = metricCards[2].querySelector('.metric-value');
+        if (riskVal) {
+          riskVal.textContent = data.risk_level || 'Medium';
+          riskVal.className = 'metric-value ' + (data.risk_level === 'High' ? 'red-value' : (data.risk_level === 'Low' ? 'green-value' : 'orange-value'));
+        }
+        const riskSub = metricCards[2].querySelector('.metric-sub');
+        if (riskSub) riskSub.textContent = `${Math.round(data.risk_score || 50)} / 100`;
+
+        // Confidence
+        const confVal = metricCards[3].querySelector('.metric-value');
+        if (confVal) confVal.textContent = `${data.confidence || 76}%`;
+        const confSub = metricCards[3].querySelector('.metric-sub');
+        if (confSub && data.confidence_subtext) confSub.textContent = data.confidence_subtext;
+      }
+
+      // 3. Dynamic Chart Rendering
+      renderSvgChart(data.distribution_data);
+
+      // 4. Scenario Comparison List
+      renderScenarioComparisons(data.scenario_comparisons);
+
+      // 5. Key Insights List
+      renderKeyInsights(data.key_insights);
+
+      // 6. Why this result? Factors Breakdown
+      renderFactorBreakdown(data.factor_breakdown);
+    }
+
+    function renderSvgChart(distData) {
+      const chartViewport = document.querySelector('.chart-viewport');
+      const chartLegend = document.querySelector('.chart-legend');
+      if (!chartViewport || !distData || !distData.curves) return;
+
+      const curves = distData.curves || [];
+      const xTicks = distData.x_ticks || [];
+
+      // Build gradients and paths
+      const defsSvg = `
+        <defs>
+          <linearGradient id="dyn-grad-0" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="dyn-grad-1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#a855f7" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="dyn-grad-2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="dyn-grad-3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+      `;
+
+      // Build curve paths
+      const pathsSvg = curves.map((c, idx) => `
+        <path d="${c.fill_path}" fill="url(#dyn-grad-${idx % 4})"/>
+        <path d="${c.stroke_path}" fill="none" stroke="${c.color || '#3b82f6'}" stroke-width="2.2"/>
+      `).join('');
+
+      // Build X ticks
+      let xTicksSvg = '';
+      if (xTicks.length > 0) {
+        xTicks.forEach((t, i) => {
+          const xPos = 40 + (i / (xTicks.length - 1)) * 440;
+          xTicksSvg += `<text x="${xPos.toFixed(0)}" y="208" class="axis-text" text-anchor="middle">${t.label}</text>`;
+        });
+      } else {
+        xTicksSvg = `
+          <text x="75" y="208" class="axis-text" text-anchor="middle">0</text>
+          <text x="140" y="208" class="axis-text" text-anchor="middle">10</text>
+          <text x="210" y="208" class="axis-text" text-anchor="middle">20</text>
+          <text x="280" y="208" class="axis-text" text-anchor="middle">30</text>
+          <text x="350" y="208" class="axis-text" text-anchor="middle">40</text>
+          <text x="420" y="208" class="axis-text" text-anchor="middle">50</text>
+          <text x="475" y="208" class="axis-text" text-anchor="middle">60</text>
+        `;
+      }
+
+      chartViewport.innerHTML = `
+        <svg viewBox="0 0 500 220" class="distribution-svg">
+          ${defsSvg}
+          <!-- Grid Lines -->
+          <line x1="40" y1="30" x2="480" y2="30" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="40" y1="70" x2="480" y2="70" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="40" y1="110" x2="480" y2="110" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="40" y1="150" x2="480" y2="150" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 3"/>
+          <line x1="40" y1="190" x2="480" y2="190" stroke="rgba(255,255,255,0.12)"/>
+
+          <!-- Y-Axis Labels -->
+          <text x="32" y="34" class="axis-text" text-anchor="end">10%</text>
+          <text x="32" y="74" class="axis-text" text-anchor="end">8%</text>
+          <text x="32" y="114" class="axis-text" text-anchor="end">6%</text>
+          <text x="32" y="154" class="axis-text" text-anchor="end">2%</text>
+          <text x="32" y="194" class="axis-text" text-anchor="end">0%</text>
+
+          <!-- Curves -->
+          ${pathsSvg}
+
+          <!-- X-Axis Labels -->
+          ${xTicksSvg}
+        </svg>
+      `;
+
+      // Legends
+      if (chartLegend) {
+        const dotClasses = ['dot-blue', 'dot-purple', 'dot-green', 'dot-orange'];
+        chartLegend.innerHTML = curves.map((c, i) => `
+          <div class="legend-item">
+            <span class="dot ${dotClasses[i % dotClasses.length]}"></span>
+            <span>${escapeHtml(c.name)}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function renderScenarioComparisons(scenarios) {
+      const list = document.querySelector('.scenarios-list');
+      if (!list || !scenarios) return;
+
+      list.innerHTML = scenarios.map((sc, idx) => {
+        const riskClass = sc.risk_class || (sc.risk_level === 'High' ? 'risk-high' : (sc.risk_level === 'Low' ? 'risk-low' : 'risk-med'));
+        const badgeHtml = sc.badge ? `<span class="badge-${sc.badge_type || 'recommended'}">${escapeHtml(sc.badge)}</span>` : '';
+
+        return `
+          <div class="scenario-item">
+            <div class="scenario-icon-box ${sc.css_box || 'blue-scenario'}">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${sc.color || '#3b82f6'}" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <div class="scenario-content">
+              <div class="scenario-header">
+                <span class="scenario-name">${escapeHtml(sc.name)}</span>
+                ${badgeHtml}
+              </div>
+              <p class="scenario-sub">${escapeHtml(sc.subtitle || '')}</p>
+            </div>
+            <div class="scenario-stats">
+              <div class="stat-col">
+                <span class="stat-val">${sc.expected_formatted || '₹ 0'}</span>
+                <span class="stat-lbl">Expected</span>
+              </div>
+              <div class="stat-col">
+                <span class="stat-val">${sc.probability_pct || 0}%</span>
+                <span class="stat-lbl">Probability</span>
+              </div>
+              <div class="stat-col">
+                <span class="stat-val ${riskClass}">${sc.risk_level || 'Medium'}</span>
+                <span class="stat-lbl">Risk</span>
+              </div>
+            </div>
+            <div class="scenario-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderKeyInsights(insights) {
+      const list = document.querySelector('.insights-list');
+      if (!list || !insights) return;
+
+      const iconColors = ['icon-green', 'icon-purple', 'icon-blue', 'icon-orange'];
+      const iconSvgs = [
+        '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>',
+        '<circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle>',
+        '<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>',
+        '<path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>'
+      ];
+
+      list.innerHTML = insights.map((ins, idx) => {
+        const textVal = typeof ins === 'string' ? ins : (ins.text || '');
+        const iconType = (typeof ins === 'object' && ins.icon_type) ? `icon-${ins.icon_type}` : iconColors[idx % iconColors.length];
+        return `
+          <div class="insight-row">
+            <div class="insight-icon ${iconType}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                ${iconSvgs[idx % iconSvgs.length]}
+              </svg>
+            </div>
+            <p class="insight-text">${escapeHtml(textVal)}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderFactorBreakdown(factors) {
+      const list = document.querySelector('.factors-list');
+      if (!list || !factors) return;
+
+      const barColors = ['bar-blue', 'bar-indigo', 'bar-purple', 'bar-coral', 'bar-orange'];
+
+      list.innerHTML = factors.map((fac, idx) => {
+        const labelText = fac.label || fac.name || 'Influencing Factor';
+        const pctVal = fac.percentage !== undefined ? fac.percentage : (fac.impact_pct || 20);
+        const barCls = fac.bar_class || barColors[idx % barColors.length];
+
+        return `
+          <div class="factor-row">
+            <span class="factor-label">${escapeHtml(labelText)}</span>
+            <div class="factor-bar-track">
+              <div class="factor-bar-fill ${barCls}" style="width: ${pctVal}%;"></div>
+            </div>
+            <span class="factor-pct">${pctVal}%</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setupResultsHandlers() {
+      // What-If button trigger
+      const whatIfBtn = document.querySelector('.what-if-cta-btn');
+      if (whatIfBtn) {
+        whatIfBtn.addEventListener('click', () => {
+          document.getElementById('whatif-modal').style.display = 'flex';
+        });
+      }
+
+      // Recalculate What-If
+      const recalcBtn = document.getElementById('btn-recalculate-whatif');
+      if (recalcBtn) {
+        recalcBtn.addEventListener('click', async () => {
+          const growthDelta = parseFloat(document.getElementById('whatif-growth-range').value) || 0;
+          const costMult = parseFloat(document.getElementById('whatif-cost-range').value) || 1.0;
+          const vol = parseFloat(document.getElementById('whatif-vol-range').value) || 0.25;
+
+          recalcBtn.textContent = 'Recalculating 10,000 Runs...';
+          recalcBtn.style.opacity = '0.75';
+
+          try {
+            const res = await fetch(`/api/simulations/${simId}/what-if`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                variable_updates: {
+                  growth_delta_pct: growthDelta,
+                  volatility_index: vol,
+                  cost_multiplier: costMult
+                }
+              })
+            });
+
+            if (res.ok) {
+              const updatedData = await res.json();
+              renderResultsData(updatedData);
+              closeWhatIfModal();
+            }
+          } catch (err) {
+            console.error("Error in What-If recalculation:", err);
+          } finally {
+            recalcBtn.textContent = 'Run What-If Simulation';
+            recalcBtn.style.opacity = '1';
+          }
+        });
+      }
+
+      // Edit decision button in meta card
+      const editDecisionBtn = document.querySelector('.decision-meta-right .edit-btn');
+      if (editDecisionBtn) {
+        editDecisionBtn.addEventListener('click', () => {
+          window.location.href = 'additional-info.html';
+        });
+      }
+    }
+
+    function closeWhatIfModal() {
+      document.getElementById('whatif-modal').style.display = 'none';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

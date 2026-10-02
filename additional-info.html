@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RealitySim AI - Additional Information</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="additional-info.css">
+</head>
+<body>
+  <!-- Fixed Background Video -->
+  <div class="video-container">
+    <video
+      id="bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260629_021419_291eb2af-5ed4-45a0-a1d6-3ef58f4bca0b.mp4">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260629_021419_291eb2af-5ed4-45a0-a1d6-3ef58f4bca0b.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- Dashboard Container -->
+  <div class="app-layout">
+    <div class="dashboard-shell">
+      
+      <!-- Top Stepper Header -->
+      <header class="wizard-header">
+        <div class="stepper-nav">
+          <a href="index.html" class="step-item completed">
+            <span class="step-badge check-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </span>
+            <span class="step-title">Decision Input</span>
+          </a>
+          <div class="step-divider active-divider"></div>
+
+          <div class="step-item active">
+            <span class="step-badge num-badge">2</span>
+            <span class="step-title">Additional Information</span>
+          </div>
+          <div class="step-divider"></div>
+
+          <a href="scenarios.html" class="step-item">
+            <span class="step-badge num-badge">3</span>
+            <span class="step-title">Scenarios</span>
+          </a>
+          <div class="step-divider"></div>
+
+          <a href="results.html" class="step-item">
+            <span class="step-badge num-badge">4</span>
+            <span class="step-title">Simulation & Results</span>
+          </a>
+        </div>
+
+        <div class="header-right">
+          <div class="user-avatar">A</div>
+        </div>
+      </header>
+
+      <!-- Main Form Area -->
+      <main class="wizard-main">
+        
+        <!-- Header Title & Info Banner -->
+        <div class="page-intro-row">
+          <div class="intro-text">
+            <h1 class="page-title">Additional Information</h1>
+            <p class="page-subtitle">Provide more details to make the simulation more accurate.</p>
+          </div>
+
+          <div class="info-tip-card">
+            <div class="tip-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                <path d="M9 18h6"></path>
+                <path d="M10 22h4"></path>
+                <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>
+              </svg>
+            </div>
+            <p class="tip-text">
+              The more details you provide, the more accurate and personalized your simulation results will be.
+            </p>
+          </div>
+        </div>
+
+        <!-- Two-Column Form Grid -->
+        <form class="wizard-grid" id="wizard-form" onsubmit="event.preventDefault(); window.location.href='results.html';">
+          
+          <!-- Column 1 (Left) -->
+          <div class="wizard-column">
+            
+            <!-- Card 1: Your Current Situation -->
+            <div class="glass-card">
+              <div class="card-title-row">
+                <div class="card-icon-box purple-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <div class="card-title-meta">
+                  <h2 class="card-heading">Your Current Situation</h2>
+                  <p class="card-subheading">Help us understand your background and current status.</p>
+                </div>
+              </div>
+
+              <div class="form-row-2col">
+                <div class="form-group">
+                  <label class="form-label" for="age-input">Age</label>
+                  <div class="input-with-tag">
+                    <input type="number" id="age-input" class="form-input" value="21" min="15" max="100">
+                    <span class="input-tag">years</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Education Level</label>
+                  <div class="custom-select-wrapper">
+                    <select class="form-select">
+                      <option selected>B.Tech (CSE - AI)</option>
+                      <option>B.Tech / B.E. (Computer Science)</option>
+                      <option>B.Sc / BCA</option>
+                      <option>Master's / Post Graduate</option>
+                      <option>High School / Diploma</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row-2col">
+                <div class="form-group">
+                  <label class="form-label">Current Location</label>
+                  <div class="custom-select-wrapper select-with-icon">
+                    <span class="select-left-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                    </span>
+                    <select class="form-select">
+                      <option selected>India</option>
+                      <option>United States</option>
+                      <option>United Kingdom</option>
+                      <option>Germany</option>
+                      <option>Canada</option>
+                      <option>Singapore</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Work Experience</label>
+                  <div class="custom-select-wrapper">
+                    <select class="form-select">
+                      <option selected>Fresher (0 years)</option>
+                      <option>1 - 2 years</option>
+                      <option>3 - 5 years</option>
+                      <option>5+ years</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: Financial Information -->
+            <div class="glass-card">
+              <div class="card-title-row">
+                <div class="card-icon-box blue-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <path d="M15 9.5a2.5 2.5 0 0 0-5 0c0 2.5 5 1.5 5 4a2.5 2.5 0 0 1-5 0"></path>
+                  </svg>
+                </div>
+                <div class="card-title-meta">
+                  <h2 class="card-heading">Financial Information</h2>
+                  <p class="card-subheading">Enter your financial details (optional but recommended).</p>
+                </div>
+              </div>
+
+              <div class="form-row-2col">
+                <div class="form-group">
+                  <label class="form-label" for="savings-input">Current Savings</label>
+                  <div class="currency-input-wrapper">
+                    <span class="currency-symbol">₹</span>
+                    <input type="text" id="savings-input" class="form-input with-currency" value="50,000">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="income-input">Expected Annual Income (if job)</label>
+                  <div class="currency-input-wrapper">
+                    <span class="currency-symbol">₹</span>
+                    <input type="text" id="income-input" class="form-input with-currency" value="6,00,000">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row-3col">
+                <div class="form-group">
+                  <label class="form-label" for="expenses-input">Monthly Expenses</label>
+                  <div class="currency-input-wrapper">
+                    <span class="currency-symbol">₹</span>
+                    <input type="text" id="expenses-input" class="form-input with-currency" value="15,000">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="education-input">Education Cost (if applicable)</label>
+                  <div class="currency-input-wrapper">
+                    <span class="currency-symbol">₹</span>
+                    <input type="text" id="education-input" class="form-input with-currency" value="20,00,000">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="investment-input">Investment Capacity</label>
+                  <div class="currency-input-wrapper input-with-tag">
+                    <span class="currency-symbol">₹</span>
+                    <input type="text" id="investment-input" class="form-input with-currency" value="5,000">
+                    <span class="input-tag multi-line-tag">per<br>month</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Goals and Priorities -->
+            <div class="glass-card">
+              <div class="card-title-row">
+                <div class="card-icon-box violet-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                  </svg>
+                </div>
+                <div class="card-title-meta">
+                  <h2 class="card-heading">Goals and Priorities</h2>
+                  <p class="card-subheading">Select what matters most to you.</p>
+                </div>
+              </div>
+
+              <div class="chips-container">
+                <button type="button" class="priority-chip active" data-selected="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                  <span>High Income</span>
+                </button>
+
+                <button type="button" class="priority-chip active" data-selected="true">
+                  <span>Career Growth</span>
+                </button>
+
+                <button type="button" class="priority-chip active" data-selected="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  <span>Financial Stability</span>
+                </button>
+
+                <button type="button" class="priority-chip">
+                  <span>Work-Life Balance</span>
+                </button>
+
+                <button type="button" class="priority-chip">
+                  <span>Skill Development</span>
+                </button>
+
+                <button type="button" class="priority-chip">
+                  <span>Global Exposure</span>
+                </button>
+
+                <button type="button" class="priority-chip">
+                  <span>Research Opportunities</span>
+                </button>
+
+                <button type="button" class="priority-chip">
+                  <span>Job Security</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Column 2 (Right) -->
+          <div class="wizard-column">
+            
+            <!-- Card 4: Risk and Preference -->
+            <div class="glass-card">
+              <div class="card-title-row">
+                <div class="card-icon-box blue-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                </div>
+                <div class="card-title-meta">
+                  <h2 class="card-heading">Risk and Preference</h2>
+                  <p class="card-subheading">Tell us about your risk tolerance and preferences.</p>
+                </div>
+              </div>
+
+              <!-- Risk Slider -->
+              <div class="risk-slider-group">
+                <div class="slider-header-label">Risk Tolerance</div>
+                <div class="range-slider-wrapper">
+                  <input type="range" class="custom-range-slider" min="0" max="100" value="50" id="risk-range">
+                  <div class="slider-labels">
+                    <span class="range-lbl">Conservative</span>
+                    <span class="range-lbl active-lbl" id="risk-val-text">Balanced</span>
+                    <span class="range-lbl">Aggressive</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row-2col">
+                <div class="form-group">
+                  <label class="form-label">Time Horizon</label>
+                  <div class="custom-select-wrapper select-with-icon">
+                    <span class="select-left-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                    </span>
+                    <select class="form-select">
+                      <option selected>5 years</option>
+                      <option>1 year</option>
+                      <option>3 years</option>
+                      <option>10 years</option>
+                      <option>20 years</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Decision Priority</label>
+                  <div class="custom-select-wrapper select-with-icon">
+                    <span class="select-left-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                      </svg>
+                    </span>
+                    <select class="form-select">
+                      <option selected>Balanced Growth</option>
+                      <option>Maximum Upside</option>
+                      <option>Capital Preservation</option>
+                      <option>Rapid Skill Acquisition</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5: Additional Context -->
+            <div class="glass-card">
+              <div class="card-title-row">
+                <div class="card-icon-box blue-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+                <div class="card-title-meta">
+                  <h2 class="card-heading">Additional Context</h2>
+                  <p class="card-subheading">Add any other relevant information (optional).</p>
+                </div>
+              </div>
+
+              <div class="textarea-wrapper">
+                <textarea
+                  id="context-textarea"
+                  class="glass-textarea"
+                  maxlength="500"
+                  rows="3">I am interested in AI/ML, want to work in top tech companies or go abroad for higher studies. I am okay with moderate risk.</textarea>
+                <div class="char-count" id="context-count">112/500</div>
+              </div>
+            </div>
+
+            <!-- Card 6: External Factors (Optional) -->
+            <div class="glass-card">
+              <div class="card-title-row">
+                <div class="card-icon-box blue-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+                <div class="card-title-meta">
+                  <h2 class="card-heading">External Factors (Optional)</h2>
+                  <p class="card-subheading">Consider any specific external factors that might affect your decision.</p>
+                </div>
+              </div>
+
+              <div class="textarea-wrapper">
+                <textarea
+                  id="external-textarea"
+                  class="glass-textarea"
+                  maxlength="300"
+                  rows="3"
+                  placeholder="e.g., family situation, loan constraints, specific countries, market conditions..."></textarea>
+                <div class="char-count" id="external-count">0/300</div>
+              </div>
+            </div>
+
+          </div>
+
+        </form>
+
+      </main>
+
+      <!-- Bottom Navigation Footer -->
+      <footer class="wizard-footer">
+        <a href="index.html#prompt-section" class="btn-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Back</span>
+        </a>
+
+        <a href="scenarios.html" class="btn-generate-scenarios">
+          <span>Generate Scenarios</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3.33337 8H12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    // Video autoplay enforcement
+    const video = document.getElementById('bg-video');
+    if (video) {
+      video.muted = true;
+      video.play().catch(console.log);
+      window.addEventListener('click', () => { if (video.paused) video.play(); }, { once: true });
+    }
+
+    // Toggle priority chips
+    document.querySelectorAll('.priority-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('active');
+      });
+    });
+
+    // Character counters
+    const setupCharCount = (textareaId, countId, max) => {
+      const el = document.getElementById(textareaId);
+      const cnt = document.getElementById(countId);
+      if (el && cnt) {
+        el.addEventListener('input', () => {
+          cnt.textContent = `${el.value.length}/${max}`;
+        });
+      }
+    };
+    setupCharCount('context-textarea', 'context-count', 500);
+    setupCharCount('external-textarea', 'external-count', 300);
+
+    // Risk Slider label update
+    const slider = document.getElementById('risk-range');
+    const riskText = document.getElementById('risk-val-text');
+    if (slider && riskText) {
+      slider.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value);
+        if (val < 33) riskText.textContent = 'Conservative';
+        else if (val < 66) riskText.textContent = 'Balanced';
+        else riskText.textContent = 'Aggressive';
+      });
+    }
+
+    // Helper: Parse numeric currency
+    function parseCurrency(str) {
+      if (!str) return 0;
+      return parseFloat(str.replace(/[^0-9.-]+/g, "")) || 0;
+    }
+
+    // Generate Scenarios API Submission
+    const generateBtn = document.querySelector('.btn-generate-scenarios');
+    if (generateBtn) {
+      generateBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        let simId = localStorage.getItem('realitysim_current_id');
+        if (!simId) {
+          // If no simulation exists yet, create one first
+          const prompt = localStorage.getItem('realitysim_prompt') || "I am deciding whether to take a software job after B.Tech or pursue a master's degree. Compare the possible outcomes over 5 years.";
+          try {
+            const createRes = await fetch('/api/simulations', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ decision_prompt: prompt })
+            });
+            if (createRes.ok) {
+              const data = await createRes.json();
+              simId = data.id;
+              localStorage.setItem('realitysim_current_id', simId);
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
+        if (!simId) {
+          window.location.href = 'scenarios.html';
+          return;
+        }
+
+        // Collect Goals
+        const goals = [];
+        document.querySelectorAll('.priority-chip.active span').forEach(s => goals.push(s.textContent.trim()));
+
+        // Collect Form Payload
+        const selects = document.querySelectorAll('.form-select');
+        const educationVal = selects[0] ? selects[0].value : 'B.Tech (CSE - AI)';
+        const locationVal = selects[1] ? selects[1].value : 'India';
+        const expVal = selects[2] ? selects[2].value : 'Fresher (0 years)';
+        const timeHorizonVal = selects[3] ? selects[3].value : '5 years';
+        const priorityVal = selects[4] ? selects[4].value : 'Balanced Growth';
+
+        const payload = {
+          age: parseInt(document.getElementById('age-input')?.value || '21'),
+          education_level: educationVal,
+          location: locationVal,
+          work_experience: expVal,
+          current_savings: parseCurrency(document.getElementById('savings-input')?.value),
+          expected_annual_income: parseCurrency(document.getElementById('income-input')?.value),
+          monthly_expenses: parseCurrency(document.getElementById('expenses-input')?.value),
+          education_cost: parseCurrency(document.getElementById('education-input')?.value),
+          investment_capacity: parseCurrency(document.getElementById('investment-input')?.value),
+          risk_tolerance: riskText ? riskText.textContent : 'Balanced',
+          time_horizon: timeHorizonVal,
+          decision_priority: priorityVal,
+          goals: goals,
+          additional_context: document.getElementById('context-textarea')?.value || '',
+          external_factors: document.getElementById('external-textarea')?.value || ''
+        };
+
+        generateBtn.style.opacity = '0.7';
+        generateBtn.style.pointerEvents = 'none';
+        generateBtn.querySelector('span').textContent = 'Generating Scenarios...';
+
+        try {
+          // 1. Save additional info
+          await fetch(`/api/simulations/${simId}/additional-info`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          // 2. Trigger AI scenario generation
+          const genRes = await fetch(`/api/simulations/${simId}/generate-scenarios`, {
+            method: 'POST'
+          });
+
+          if (genRes.ok) {
+            window.location.href = 'scenarios.html';
+          } else {
+            window.location.href = 'scenarios.html';
+          }
+        } catch (err) {
+          console.error("API error during generation:", err);
+          window.location.href = 'scenarios.html';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

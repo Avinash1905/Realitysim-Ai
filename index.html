@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RealitySim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fixed Background Video -->
+  <div class="video-container">
+    <video
+      id="bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260629_021419_291eb2af-5ed4-45a0-a1d6-3ef58f4bca0b.mp4">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260629_021419_291eb2af-5ed4-45a0-a1d6-3ef58f4bca0b.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- Scrollable Wrapper -->
+  <div class="page-scroll-container">
+    <!-- Section 1: Hero -->
+    <section class="section hero-section" id="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">RealitySim</h1>
+        <p class="hero-description">
+          Don’t just imagine what comes next; simulate it.
+        </p>
+        <div class="hero-actions">
+          <a href="#prompt-section" id="get-started-btn" class="btn btn-primary">
+            Get Started
+            <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.33337 8H12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Prompt Simulation Section -->
+    <section class="section prompt-section" id="prompt-section">
+      <div class="prompt-container">
+        <h2 class="prompt-headline">Describe what you’re planning. We’ll simulate the possibilities.</h2>
+        
+        <div class="prompt-card">
+          <div class="prompt-input-wrapper">
+            <textarea
+              id="prompt-input"
+              class="prompt-textarea"
+              maxlength="1000"
+              placeholder="Describe a scenario, ecosystem, or model you want to simulate..."
+              rows="3"></textarea>
+            <div class="char-count" id="char-count">0/1000</div>
+          </div>
+
+          <div class="prompt-card-footer">
+            <div class="prompt-card-spacer"></div>
+            <a href="additional-info.html" class="simulate-cta-btn">
+              <svg class="sparkle-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                <path d="M19 17L20.1 19.9L23 21L20.1 22.1L19 25L17.9 22.1L15 21L17.9 19.9L19 17Z" opacity="0.8"/>
+              </svg>
+              <span>Simulate Possibilities</span>
+              <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.33337 8H12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 3.33337L12.6667 8.00004L8 12.6667" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Video autoplay enforcement
+    const video = document.getElementById('bg-video');
+    if (video) {
+      video.muted = true;
+      video.play().catch((err) => {
+        console.log("Autoplay waiting for user interaction:", err);
+      });
+      window.addEventListener('click', () => {
+        if (video.paused) video.play();
+      }, { once: true });
+    }
+
+    // Smooth scroll for Get Started button
+    document.getElementById('get-started-btn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('prompt-section')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Auto resize textarea & Character counter
+    const textarea = document.getElementById('prompt-input');
+    const charCount = document.getElementById('char-count');
+    if (textarea) {
+      textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 220) + 'px';
+        if (charCount) {
+          charCount.textContent = `${this.value.length}/1000`;
+        }
+      });
+    }
+
+    // Submit Decision to Backend API
+    const simulateBtn = document.querySelector('.simulate-cta-btn');
+    if (simulateBtn) {
+      simulateBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const promptVal = textarea ? textarea.value.trim() : '';
+        const finalPrompt = promptVal || "I am deciding whether to take a software job after B.Tech or pursue a master's degree. Compare the possible outcomes over 5 years.";
+        
+        simulateBtn.style.opacity = '0.7';
+        simulateBtn.style.pointerEvents = 'none';
+        
+        try {
+          const res = await fetch('/api/simulations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ decision_prompt: finalPrompt })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem('realitysim_current_id', data.id);
+            localStorage.setItem('realitysim_prompt', finalPrompt);
+            window.location.href = 'additional-info.html';
+          } else {
+            window.location.href = 'additional-info.html';
+          }
+        } catch (err) {
+          console.error("API error, proceeding to additional-info:", err);
+          window.location.href = 'additional-info.html';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
