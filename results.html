@@ -696,6 +696,12 @@
   </style>
 
   <script>
+    // Route Guard: Ensure user completed prior steps
+    const currentPrompt = localStorage.getItem('realitysim_prompt');
+    if (!currentPrompt || !currentPrompt.trim()) {
+      window.location.replace('index.html');
+    }
+
     // Video autoplay guarantee
     const video = document.getElementById('bg-video');
     if (video) {

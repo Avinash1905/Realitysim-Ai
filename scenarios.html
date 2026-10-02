@@ -79,10 +79,10 @@
           </div>
           <div class="step-divider"></div>
 
-          <a href="results.html" class="step-item">
+          <div class="step-item disabled">
             <span class="step-badge num-badge">4</span>
             <span class="step-title">Simulation & Results</span>
-          </a>
+          </div>
         </div>
 
         <div class="nav-actions">
@@ -652,6 +652,12 @@
   </style>
 
   <script>
+    // Route Guard: Ensure user entered prompt and completed prior step
+    const currentPrompt = localStorage.getItem('realitysim_prompt');
+    if (!currentPrompt || !currentPrompt.trim()) {
+      window.location.replace('index.html');
+    }
+
     // Video autoplay enforcement
     const video = document.getElementById('bg-video');
     if (video) {
