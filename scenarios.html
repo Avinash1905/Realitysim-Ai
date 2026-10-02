@@ -795,10 +795,10 @@
             <div class="prob-section">
               <div class="prob-header">
                 <span class="prob-lbl">Probability (based on current trends)</span>
-                <span class="prob-val ${theme.valClass}">${sc.probability}%</span>
+                <span class="prob-val ${theme.valClass}">${sc.probability || sc.probability_pct || sc.variables?.success_rate_pct || 75}%</span>
               </div>
               <div class="prob-track">
-                <div class="prob-fill ${theme.fillClass}" style="width: ${sc.probability}%;"></div>
+                <div class="prob-fill ${theme.fillClass}" style="width: ${sc.probability || sc.probability_pct || sc.variables?.success_rate_pct || 75}%;"></div>
               </div>
             </div>
 
@@ -912,15 +912,25 @@
           loadedScenarios.forEach((sc, idx) => {
             const sim = MonteCarloEngine.runScenario(sc, horizonYears, 10000, userInfo);
             if (idx === 0) primarySim = sim;
+            const probPct = Math.round(sc.probability || sc.probability_pct || sim.prob_positive || 75);
+            const riskLvl = sim.p10 < 0 ? 'High' : (probPct > 80 ? 'Low' : 'Medium');
+
             scenarioComparisons.push({
               name: sc.name,
-              color: idx === 0 ? 'blue' : (idx === 1 ? 'purple' : (idx === 2 ? 'green' : 'orange')),
-              badge: sc.badge || (idx === 0 ? 'Most Likely' : (sc.risk_level === 'High' ? 'Higher Risk' : 'Balanced')),
+              subtitle: sc.description || 'Stochastic Monte Carlo Projection',
+              color: idx === 0 ? '#3b82f6' : (idx === 1 ? '#a855f7' : (idx === 2 ? '#10b981' : '#f59e0b')),
+              css_box: idx === 0 ? 'blue-scenario' : (idx === 1 ? 'purple-scenario' : (idx === 2 ? 'green-scenario' : 'orange-scenario')),
+              badge: sc.badge || (idx === 0 ? 'Most Likely' : (riskLvl === 'High' ? 'Higher Risk' : 'Balanced')),
+              badge_type: sc.badge_type || (idx === 0 ? 'recommended' : (riskLvl === 'High' ? 'risky' : 'balanced')),
+              expected_formatted: MonteCarloEngine.formatINR(sim.mean),
               expected_value: MonteCarloEngine.formatINR(sim.mean),
               p10_p90_range: `${MonteCarloEngine.formatINR(sim.p10)} – ${MonteCarloEngine.formatINR(sim.p90)}`,
-              risk_level: sim.p10 < 0 ? 'High' : (sim.prob_positive > 88 ? 'Low' : 'Medium'),
-              risk_score: Math.round(Math.max(10, Math.min(95, 100 - sim.prob_positive * 0.7 + (sim.std / (sim.mean || 1)) * 10))),
-              confidence: `${Math.round(sim.prob_positive)}%`
+              probability_pct: probPct,
+              probability: probPct,
+              risk_level: riskLvl,
+              risk_class: riskLvl === 'High' ? 'risk-high' : (riskLvl === 'Low' ? 'risk-low' : 'risk-med'),
+              risk_score: Math.round(Math.max(10, Math.min(95, 100 - probPct * 0.7 + (sim.std / (sim.mean || 1)) * 10))),
+              confidence: `${probPct}%`
             });
           });
 

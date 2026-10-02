@@ -99,6 +99,21 @@ Context & Profile:
               if (match) parsed = JSON.parse(match[0]);
             }
             if (parsed && parsed.scenarios) {
+              parsed.scenarios = parsed.scenarios.map((sc, idx) => {
+                const prob = sc.probability || sc.probability_pct || sc.variables?.success_rate_pct || (idx === 0 ? 82 : (idx === 1 ? 65 : 78));
+                return {
+                  id: sc.id || `sc-${idx + 1}`,
+                  name: sc.name || `Scenario ${idx + 1}`,
+                  badge: sc.badge || (idx === 0 ? 'Most Likely' : (idx === 1 ? 'Higher Risk' : 'Balanced')),
+                  badge_color: sc.badge_color || (idx === 0 ? 'blue' : (idx === 1 ? 'red' : 'green')),
+                  badge_type: sc.badge_type || (idx === 0 ? 'recommended' : (idx === 1 ? 'risky' : 'balanced')),
+                  description: sc.description || '',
+                  probability: prob,
+                  probability_pct: prob,
+                  assumptions: sc.assumptions || [],
+                  variables: sc.variables || {}
+                };
+              });
               return {
                 statusCode: 200,
                 headers: { "Content-Type": "application/json" },

@@ -140,7 +140,7 @@ class MonteCarloEngine {
   }
 
   static formatINR(val) {
-    if (val === null || val === undefined) return '₹ 0';
+    if (val === null || val === undefined || isNaN(val)) return '₹ 0';
     const isNeg = val < 0;
     const absVal = Math.abs(val);
     let str = '';
@@ -160,7 +160,7 @@ class MonteCarloEngine {
 }
 
 // ==========================================
-// 2. Realistic LLM & Scenario Service
+// 2. Realistic LLM & Domain Scenario Service
 // ==========================================
 class RealitySimAIService {
   static getApiKey() {
@@ -225,51 +225,87 @@ class RealitySimAIService {
     throw new Error("Failed to parse JSON response");
   }
 
+  static normalizeScenarios(data) {
+    if (!data || !data.scenarios) return data;
+    data.scenarios = data.scenarios.map((sc, idx) => {
+      const prob = sc.probability || sc.probability_pct || sc.variables?.success_rate_pct || (idx === 0 ? 82 : (idx === 1 ? 65 : 75));
+      return {
+        id: sc.id || `sc-${idx + 1}`,
+        name: sc.name || `Scenario ${idx + 1}`,
+        badge: sc.badge || (idx === 0 ? 'Most Likely' : (idx === 1 ? 'Higher Risk' : 'Balanced')),
+        badge_color: sc.badge_color || (idx === 0 ? 'blue' : (idx === 1 ? 'red' : 'green')),
+        badge_type: sc.badge_type || (idx === 0 ? 'recommended' : (idx === 1 ? 'risky' : 'balanced')),
+        description: sc.description || '',
+        probability: prob,
+        probability_pct: prob,
+        assumptions: (sc.assumptions || []).map(a => ({
+          icon: a.icon || '📌',
+          label: a.label || a.key || 'Assumption',
+          value: a.value || ''
+        })),
+        variables: {
+          base_cashflow_annual: parseFloat(sc.variables?.base_cashflow_annual || 600000),
+          growth_mean_pct: parseFloat(sc.variables?.growth_mean_pct || 10),
+          growth_std_pct: parseFloat(sc.variables?.growth_std_pct || 3.5),
+          upfront_cost: parseFloat(sc.variables?.upfront_cost || 0),
+          annual_cost: parseFloat(sc.variables?.annual_cost || 180000),
+          success_rate_pct: parseFloat(sc.variables?.success_rate_pct || prob),
+          downside_risk_pct: parseFloat(sc.variables?.downside_risk_pct || 12),
+          volatility_index: parseFloat(sc.variables?.volatility_index || 0.22)
+        }
+      };
+    });
+    return data;
+  }
+
   static async generateScenarios(decisionPrompt, additionalInfo = {}) {
     const systemPrompt = `You are RealitySim AI, an advanced probabilistic decision modeling engine.
-Analyze the user's decision and generate 3 to 4 distinct, realistic future scenarios.
-You MUST output ONLY valid JSON matching this structure:
+Analyze the user's decision and generate 3 distinct, hyper-realistic future scenarios tailored precisely to their topic.
+Output ONLY valid JSON matching:
 {
-  "title": "Short title of decision",
-  "category": "Career / Financial / Education / Business",
+  "title": "Title of Decision",
+  "category": "Domain Category",
   "scenarios": [
     {
-      "name": "Scenario Name (e.g. Job + Immediate Up-skilling)",
-      "badge": "Most Likely / Higher Risk / Balanced / Conservative",
-      "badge_color": "blue / red / green / purple",
-      "description": "Specific, realistic description of what happens in this scenario.",
+      "name": "Specific Scenario Name",
+      "badge": "Most Likely / Higher Risk / Balanced",
+      "badge_color": "blue / red / green",
+      "badge_type": "recommended / risky / balanced",
+      "description": "Realistic outcome and roadmap description.",
+      "probability": 80,
       "assumptions": [
-        {"icon": "💼", "label": "Starting Compensation", "value": "₹ 7.5 LPA"},
-        {"icon": "📈", "label": "Annual Hike", "value": "12%"},
-        {"icon": "⏱️", "label": "Effort / Study", "value": "10 hrs/week"}
+        {"icon": "💼", "label": "Key Revenue / Salary", "value": "₹ 8.5 LPA"},
+        {"icon": "📈", "label": "Yearly Growth", "value": "15%"},
+        {"icon": "⏱️", "label": "Operating Effort", "value": "45 hrs/week"}
       ],
       "variables": {
-        "base_cashflow_annual": 750000,
-        "growth_mean_pct": 12,
-        "growth_std_pct": 3.5,
-        "upfront_cost": 0,
+        "base_cashflow_annual": 850000,
+        "growth_mean_pct": 15,
+        "growth_std_pct": 4.0,
+        "upfront_cost": 150000,
         "annual_cost": 240000,
-        "success_rate_pct": 85,
-        "downside_risk_pct": 10,
-        "volatility_index": 0.20
+        "success_rate_pct": 80,
+        "downside_risk_pct": 12,
+        "volatility_index": 0.22
       }
     }
   ]
 }`;
 
+    const info = additionalInfo || {};
     const userPrompt = `Decision: "${decisionPrompt}"
 Context & Profile:
-- Age: ${additionalInfo.age || 22}
-- Education: ${additionalInfo.education_level || 'B.Tech CSE'}
-- Location: ${additionalInfo.location || 'India'}
-- Experience: ${additionalInfo.work_experience || 'Fresher'}
-- Current Savings: ₹ ${additionalInfo.current_savings || 50000}
-- Expected Income: ₹ ${additionalInfo.expected_annual_income || 600000}
-- Monthly Expenses: ₹ ${additionalInfo.monthly_expenses || 15000}
-- Time Horizon: ${additionalInfo.time_horizon || '5 years'}
-- Priority: ${additionalInfo.decision_priority || 'Balanced Growth'}
-- Goals: ${(additionalInfo.goals || []).join(', ')}
-- Additional Context: ${additionalInfo.additional_context || 'None'}`;
+- Age: ${info.age || 22}
+- Education: ${info.education_level || 'B.Tech CSE'}
+- Location: ${info.location || 'India'}
+- Experience: ${info.work_experience || 'Fresher'}
+- Current Savings: ₹ ${info.current_savings || 50000}
+- Expected Income: ₹ ${info.expected_annual_income || 600000}
+- Monthly Expenses: ₹ ${info.monthly_expenses || 15000}
+- Time Horizon: ${info.time_horizon || '5 years'}
+- Priority: ${info.decision_priority || 'Balanced Growth'}
+- Goals: ${(info.goals || []).join(', ')}
+- Additional Context: ${info.additional_context || 'None'}`;
 
     // 1. Try Netlify Serverless Function first (Uses secure Netlify Environment Variable)
     try {
@@ -281,11 +317,11 @@ Context & Profile:
       if (netlifyRes.ok) {
         const netlifyData = await netlifyRes.json();
         if (netlifyData && netlifyData.scenarios && netlifyData.scenarios.length > 0) {
-          return netlifyData;
+          return this.normalizeScenarios(netlifyData);
         }
       }
     } catch (e) {
-      console.log("Netlify function not reachable, trying client/fallback...", e);
+      console.log("Netlify function not reachable:", e);
     }
 
     // 2. Try Client-Side LLM Call
@@ -293,116 +329,344 @@ Context & Profile:
       const rawText = await this.callLLM(systemPrompt, userPrompt);
       const parsed = this.parseJSON(rawText);
       if (parsed && parsed.scenarios && parsed.scenarios.length > 0) {
-        return parsed;
+        return this.normalizeScenarios(parsed);
       }
     } catch (err) {
-      console.warn("LLM API fallback to domain simulation generator:", err);
+      console.warn("Using smart domain simulation generator:", err);
     }
 
-    // Dynamic Domain Generator Fallback (Guarantees zero downtime & realism)
-    return this.generateSmartFallback(decisionPrompt, additionalInfo);
+    // 3. Dynamic Domain Generator (Provides domain-specific realism for any prompt)
+    const fallback = this.generateSmartFallback(decisionPrompt, additionalInfo);
+    return this.normalizeScenarios(fallback);
   }
 
-  static generateSmartFallback(prompt, info) {
+  static generateSmartFallback(prompt, info = {}) {
     const p = (prompt || '').toLowerCase();
-    const income = parseFloat(info.expected_annual_income || 650000);
-    const savings = parseFloat(info.current_savings || 100000);
+    const income = parseFloat(info.expected_annual_income || 600000);
+    const savings = parseFloat(info.current_savings || 50000);
     const expenses = parseFloat(info.monthly_expenses ? info.monthly_expenses * 12 : 180000);
 
-    let title = "Decision Analysis Simulation";
-    let category = "Career & Financial Strategy";
-    let sc1Name = "Primary Direct Route";
-    let sc2Name = "High Growth / High Investment";
-    let sc3Name = "Balanced / Hybrid Strategy";
-
-    if (p.includes('master') || p.includes('ms') || p.includes('mtech') || p.includes('job') || p.includes('study')) {
-      title = "B.Tech Job vs Master's Degree Decision";
-      category = "Higher Education vs Industry";
-      sc1Name = "Immediate Industry Job & Fast Promotions";
-      sc2Name = "Full-Time Master's Degree & Global Pivot";
-      sc3Name = "Part-Time Higher Studies while Working";
-    } else if (p.includes('startup') || p.includes('business') || p.includes('company')) {
-      title = "Startup Venture vs Stable Corporate Path";
-      category = "Entrepreneurship & Career Risk";
-      sc1Name = "Full-Time Venture Launch";
-      sc2Name = "Corporate Role + Side Project MVP";
-      sc3Name = "Join High-Growth Series-A Startup";
-    } else if (p.includes('buy') || p.includes('rent') || p.includes('flat') || p.includes('house') || p.includes('invest')) {
-      title = "Real Estate Purchase vs Market Investment";
-      category = "Asset Allocation & Real Estate";
-      sc1Name = "Property Purchase with Home Loan";
-      sc2Name = "Rent & Disciplined Equity SIPs";
-      sc3Name = "Hybrid: Fractional Real Estate & Debt";
+    // Domain 1: Tea Stall / Food / Kiosk / QSR
+    if (p.includes('tea') || p.includes('chai') || p.includes('stall') || p.includes('cafe') || p.includes('restaurant') || p.includes('food')) {
+      return {
+        title: "Tea & Beverage Stall Business Simulation",
+        category: "Retail Food & Beverage (QSR)",
+        scenarios: [
+          {
+            id: 'sc-1',
+            name: "High-Footfall Commercial Kiosk",
+            badge: "Most Likely",
+            badge_color: "blue",
+            badge_type: "recommended",
+            probability: 84,
+            description: "Prime location near IT parks or colleges with 400+ cups/day sales and steady repeat footfall.",
+            assumptions: [
+              { icon: '☕', label: 'Daily Sales Volume', value: '420 cups @ ₹15-20/cup' },
+              { icon: '💰', label: 'Monthly Net Profit', value: '₹ 62,000 / mo' },
+              { icon: '📍', label: 'Setup & Rent Advance', value: '₹ 1.2 L upfront' }
+            ],
+            variables: {
+              base_cashflow_annual: 744000,
+              growth_mean_pct: 14.5,
+              growth_std_pct: 3.5,
+              upfront_cost: 120000,
+              annual_cost: 160000,
+              success_rate_pct: 84,
+              downside_risk_pct: 12,
+              volatility_index: 0.18
+            }
+          },
+          {
+            id: 'sc-2',
+            name: "Multi-Outlet Franchise Expansion",
+            badge: "Higher Risk",
+            badge_color: "red",
+            badge_type: "risky",
+            probability: 62,
+            description: "Aggressive multi-stall expansion with branded packaging, snacks menu, and staff hiring.",
+            assumptions: [
+              { icon: '🚀', label: 'Scale to 3 Outlets', value: 'Yr 2-3 Multi-Unit' },
+              { icon: '📈', label: 'Annual Cash Flow Potential', value: '₹ 18.5 LPA' },
+              { icon: '⚡', label: 'Capex & Equipment', value: '₹ 4.8 L initial' }
+            ],
+            variables: {
+              base_cashflow_annual: 1450000,
+              growth_mean_pct: 28.0,
+              growth_std_pct: 8.0,
+              upfront_cost: 480000,
+              annual_cost: 320000,
+              success_rate_pct: 62,
+              downside_risk_pct: 26,
+              volatility_index: 0.44
+            }
+          },
+          {
+            id: 'sc-3',
+            name: "Low-Cost Mobile Cart / Express Stall",
+            badge: "Balanced",
+            badge_color: "green",
+            badge_type: "balanced",
+            probability: 79,
+            description: "Minimal overhead cart model with high gross margins and immediate cash breakeven.",
+            assumptions: [
+              { icon: '🚲', label: 'Cart & Appliance Capex', value: '₹ 45,000' },
+              { icon: '💵', label: 'Net Monthly Earnings', value: '₹ 42,000 / mo' },
+              { icon: '🛡️', label: 'Downside Protection', value: 'Low fixed rent' }
+            ],
+            variables: {
+              base_cashflow_annual: 504000,
+              growth_mean_pct: 9.5,
+              growth_std_pct: 3.0,
+              upfront_cost: 45000,
+              annual_cost: 120000,
+              success_rate_pct: 79,
+              downside_risk_pct: 10,
+              volatility_index: 0.16
+            }
+          }
+        ]
+      };
     }
 
+    // Domain 2: Masters / Higher Studies vs Job
+    if (p.includes('master') || p.includes('ms') || p.includes('mtech') || p.includes('degree') || p.includes('higher study') || p.includes('gre') || p.includes('gate')) {
+      return {
+        title: "Industry Job vs Master's Degree Decision",
+        category: "Higher Education vs Direct Career",
+        scenarios: [
+          {
+            id: 'sc-1',
+            name: "Direct Software Industry Role & Rapid Promotion",
+            badge: "Most Likely",
+            badge_color: "blue",
+            badge_type: "recommended",
+            probability: 86,
+            description: "Start working immediately, earning continuous cash flow and gaining real-world production experience.",
+            assumptions: [
+              { icon: '💼', label: 'Starting Salary', value: MonteCarloEngine.formatINR(income) },
+              { icon: '📈', label: 'Annual Appraisal Hike', value: '14%' },
+              { icon: '💰', label: 'Zero Student Debt', value: '₹ 0 upfront loans' }
+            ],
+            variables: {
+              base_cashflow_annual: income,
+              growth_mean_pct: 14.0,
+              growth_std_pct: 3.5,
+              upfront_cost: 0,
+              annual_cost: expenses,
+              success_rate_pct: 86,
+              downside_risk_pct: 10,
+              volatility_index: 0.18
+            }
+          },
+          {
+            id: 'sc-2',
+            name: "Full-Time Master's (MS / M.Tech) with Higher Payoff",
+            badge: "Higher Risk",
+            badge_color: "red",
+            badge_type: "risky",
+            probability: 68,
+            description: "2 years of study and student loan commitment, followed by higher starting baseline and tier-1 roles.",
+            assumptions: [
+              { icon: '🎓', label: 'Tuition & Living Cost', value: MonteCarloEngine.formatINR(savings * 0.8 + 800000) },
+              { icon: '🚀', label: 'Post-Degree Package', value: MonteCarloEngine.formatINR(income * 2.2) },
+              { icon: '⏱️', label: 'Payback Period', value: '2.5 - 3 years' }
+            ],
+            variables: {
+              base_cashflow_annual: income * 2.2,
+              growth_mean_pct: 19.0,
+              growth_std_pct: 6.5,
+              upfront_cost: savings * 0.8 + 800000,
+              annual_cost: expenses * 1.15,
+              success_rate_pct: 68,
+              downside_risk_pct: 22,
+              volatility_index: 0.38
+            }
+          },
+          {
+            id: 'sc-3',
+            name: "Work Full-Time + Executive / Online Master's",
+            badge: "Balanced",
+            badge_color: "green",
+            badge_type: "balanced",
+            probability: 81,
+            description: "Maintain continuous salary while funding accredited certifications and part-time advanced degree.",
+            assumptions: [
+              { icon: '⚖️', label: 'Continuous Income Stream', value: MonteCarloEngine.formatINR(income * 1.1) },
+              { icon: '📚', label: 'Program Expense', value: '₹ 1.8 L total' },
+              { icon: '🎯', label: 'Career Switch Boost', value: '+35% hike' }
+            ],
+            variables: {
+              base_cashflow_annual: income * 1.1,
+              growth_mean_pct: 15.0,
+              growth_std_pct: 4.0,
+              upfront_cost: 180000,
+              annual_cost: expenses,
+              success_rate_pct: 81,
+              downside_risk_pct: 12,
+              volatility_index: 0.22
+            }
+          }
+        ]
+      };
+    }
+
+    // Domain 3: Startup / Business Venture
+    if (p.includes('startup') || p.includes('business') || p.includes('company') || p.includes('saas') || p.includes('founder')) {
+      return {
+        title: "Startup Venture vs Corporate Stability",
+        category: "Entrepreneurship & Venture Risk",
+        scenarios: [
+          {
+            id: 'sc-1',
+            name: "Full-Time Bootstrapped Startup Launch",
+            badge: "Higher Risk",
+            badge_color: "red",
+            badge_type: "risky",
+            probability: 60,
+            description: "100% focus on building and distributing your product, tolerating initial lean months for exponential upside.",
+            assumptions: [
+              { icon: '⚡', label: 'Initial Runway Burn', value: MonteCarloEngine.formatINR(savings * 0.7) },
+              { icon: '📈', label: 'Yr 3 ARR Potential', value: '₹ 25 LPA+' },
+              { icon: '🎯', label: 'Product-Market Fit Risk', value: 'High volatility' }
+            ],
+            variables: {
+              base_cashflow_annual: income * 1.8,
+              growth_mean_pct: 32.0,
+              growth_std_pct: 9.0,
+              upfront_cost: savings * 0.7,
+              annual_cost: expenses,
+              success_rate_pct: 60,
+              downside_risk_pct: 30,
+              volatility_index: 0.48
+            }
+          },
+          {
+            id: 'sc-2',
+            name: "Corporate Job + Weekend MVP Validation",
+            badge: "Balanced",
+            badge_color: "green",
+            badge_type: "balanced",
+            probability: 83,
+            description: "Keep full salary safety net while validating customer willingness-to-pay before leaving job.",
+            assumptions: [
+              { icon: '🛡️', label: 'Salary Buffer', value: MonteCarloEngine.formatINR(income) },
+              { icon: '⏳', label: 'Side Hustle Effort', value: '15 hrs/wk' },
+              { icon: '🚀', label: 'Transition Point', value: 'When MRR > 50% salary' }
+            ],
+            variables: {
+              base_cashflow_annual: income * 1.25,
+              growth_mean_pct: 18.0,
+              growth_std_pct: 4.5,
+              upfront_cost: 60000,
+              annual_cost: expenses,
+              success_rate_pct: 83,
+              downside_risk_pct: 12,
+              volatility_index: 0.22
+            }
+          },
+          {
+            id: 'sc-3',
+            name: "Join Funded Early-Stage Startup (High ESOP)",
+            badge: "Most Likely",
+            badge_color: "blue",
+            badge_type: "recommended",
+            probability: 78,
+            description: "Gain rapid startup execution leadership and equity upside without personal runway burn.",
+            assumptions: [
+              { icon: '💼', label: 'Base + Equity Mix', value: MonteCarloEngine.formatINR(income * 1.2) },
+              { icon: '📈', label: 'Equity Liquidity Value', value: 'High multiplier' },
+              { icon: '⚡', label: 'Work Intensity', value: 'Fast paced' }
+            ],
+            variables: {
+              base_cashflow_annual: income * 1.2,
+              growth_mean_pct: 16.0,
+              growth_std_pct: 5.0,
+              upfront_cost: 0,
+              annual_cost: expenses,
+              success_rate_pct: 78,
+              downside_risk_pct: 15,
+              volatility_index: 0.26
+            }
+          }
+        ]
+      };
+    }
+
+    // Domain 4: General Smart Tailored Simulation
     return {
-      title: title,
-      category: category,
+      title: prompt ? `Simulation: "${prompt.slice(0, 45)}..."` : "Strategic Decision Simulation",
+      category: "Probabilistic Financial Strategy",
       scenarios: [
         {
           id: 'sc-1',
-          name: sc1Name,
-          badge: 'Most Likely',
-          badge_color: 'blue',
-          description: `Focuses on immediate entry and compounding early earnings with stable annual progressions.`,
+          name: "Direct Execution & Core Path",
+          badge: "Most Likely",
+          badge_color: "blue",
+          badge_type: "recommended",
+          probability: 82,
+          description: `Direct execution focusing on immediate momentum and compounding value over ${info.time_horizon || '5 years'}.`,
           assumptions: [
-            { icon: '💼', label: 'Starting Income', value: MonteCarloEngine.formatINR(income) },
-            { icon: '📈', label: 'Annual Growth Rate', value: '11.5%' },
-            { icon: '🛡️', label: 'Downside Risk', value: 'Low (10%)' }
+            { icon: '💼', label: 'Baseline Cashflow', value: MonteCarloEngine.formatINR(income) },
+            { icon: '📈', label: 'Annual Compounded Growth', value: '12.5%' },
+            { icon: '🛡️', label: 'Downside Risk Buffer', value: 'Protected (10%)' }
           ],
           variables: {
             base_cashflow_annual: income,
-            growth_mean_pct: 11.5,
-            growth_std_pct: 3.0,
+            growth_mean_pct: 12.5,
+            growth_std_pct: 3.5,
             upfront_cost: 0,
             annual_cost: expenses,
-            success_rate_pct: 85,
+            success_rate_pct: 82,
             downside_risk_pct: 10,
             volatility_index: 0.18
           }
         },
         {
           id: 'sc-2',
-          name: sc2Name,
-          badge: 'Higher Risk',
-          badge_color: 'red',
-          description: `Requires higher upfront commitment and capital, unlocking accelerated long-term compensation spikes.`,
+          name: "High Leverage / Accelerated Investment",
+          badge: "Higher Risk",
+          badge_color: "red",
+          badge_type: "risky",
+          probability: 64,
+          description: "Commits higher upfront capital and effort to achieve disproportionate long-term returns.",
           assumptions: [
-            { icon: '🎓', label: 'Upfront Capital', value: MonteCarloEngine.formatINR(savings * 0.8 + 400000) },
-            { icon: '🚀', label: 'Post-Milestone Income', value: MonteCarloEngine.formatINR(income * 1.85) },
-            { icon: '⚡', label: 'Growth Potential', value: '18.0%' }
+            { icon: '⚡', label: 'Capital Commitment', value: MonteCarloEngine.formatINR(savings * 0.75 + 150000) },
+            { icon: '🚀', label: 'Peak Compounded Return', value: MonteCarloEngine.formatINR(income * 1.9) },
+            { icon: '📊', label: 'Market Volatility', value: 'Moderate-High' }
           ],
           variables: {
-            base_cashflow_annual: income * 1.85,
-            growth_mean_pct: 18.0,
+            base_cashflow_annual: income * 1.9,
+            growth_mean_pct: 22.0,
             growth_std_pct: 7.0,
-            upfront_cost: savings * 0.8 + 400000,
+            upfront_cost: savings * 0.75 + 150000,
             annual_cost: expenses * 1.1,
-            success_rate_pct: 70,
-            downside_risk_pct: 22,
-            volatility_index: 0.42
+            success_rate_pct: 64,
+            downside_risk_pct: 24,
+            volatility_index: 0.40
           }
         },
         {
           id: 'sc-3',
-          name: sc3Name,
-          badge: 'Balanced',
-          badge_color: 'green',
-          description: `Diversifies risk by maintaining active cash flows while steadily building next-tier credentials.`,
+          name: "Diversified & Balanced Strategy",
+          badge: "Balanced",
+          badge_color: "green",
+          badge_type: "balanced",
+          probability: 80,
+          description: "Maintains strong downside capital preservation while steadily compounding upside opportunities.",
           assumptions: [
-            { icon: '⚖️', label: 'Dual Stream Income', value: MonteCarloEngine.formatINR(income * 1.15) },
-            { icon: '📈', label: 'Compounded Hike', value: '14.0%' },
-            { icon: '🎯', label: 'Success Probability', value: '82%' }
+            { icon: '⚖️', label: 'Dual Stream Yield', value: MonteCarloEngine.formatINR(income * 1.18) },
+            { icon: '📈', label: 'Steady Growth Rate', value: '14.0%' },
+            { icon: '🎯', label: 'Success Likelihood', value: '80%' }
           ],
           variables: {
-            base_cashflow_annual: income * 1.15,
+            base_cashflow_annual: income * 1.18,
             growth_mean_pct: 14.0,
             growth_std_pct: 4.0,
-            upfront_cost: 80000,
+            upfront_cost: 50000,
             annual_cost: expenses,
-            success_rate_pct: 82,
+            success_rate_pct: 80,
             downside_risk_pct: 12,
-            volatility_index: 0.24
+            volatility_index: 0.22
           }
         }
       ]
@@ -410,6 +674,5 @@ Context & Profile:
   }
 }
 
-// Attach to global window object
 window.MonteCarloEngine = MonteCarloEngine;
 window.RealitySimAIService = RealitySimAIService;

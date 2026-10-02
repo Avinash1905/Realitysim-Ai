@@ -828,11 +828,11 @@
             </div>
             <div class="scenario-stats">
               <div class="stat-col">
-                <span class="stat-val">${sc.expected_formatted || '₹ 0'}</span>
+                <span class="stat-val">${sc.expected_formatted || sc.expected_value || '₹ 0'}</span>
                 <span class="stat-lbl">Expected</span>
               </div>
               <div class="stat-col">
-                <span class="stat-val">${sc.probability_pct || 0}%</span>
+                <span class="stat-val">${sc.probability_pct ?? sc.probability ?? (sc.confidence ? parseInt(sc.confidence) : 75)}%</span>
                 <span class="stat-lbl">Probability</span>
               </div>
               <div class="stat-col">
