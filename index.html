@@ -126,6 +126,12 @@
         simulateBtn.style.opacity = '0.7';
         simulateBtn.style.pointerEvents = 'none';
 
+        // Clear any old stored scenarios/results to ensure fresh AI generation
+        localStorage.removeItem('realitysim_scenarios');
+        localStorage.removeItem('realitysim_results');
+        localStorage.removeItem('realitysim_title');
+        localStorage.removeItem('realitysim_category');
+
         // Store local state immediately
         const localId = 'sim_' + Date.now();
         localStorage.setItem('realitysim_current_id', localId);

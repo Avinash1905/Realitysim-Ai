@@ -117,279 +117,13 @@
             </div>
           </div>
 
-          <!-- 3 Scenarios Cards Grid -->
-          <div class="scenarios-grid">
-            
-            <!-- Scenario 1 -->
-            <div class="scenario-card">
-              <div class="card-header-actions">
-                <div class="scenario-badge-row">
-                  <div class="card-icon-box blue-scenario">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
-                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                    </svg>
-                  </div>
-                  <div class="scenario-titles">
-                    <span class="scenario-num">Scenario 1</span>
-                    <h3 class="scenario-heading">Job (Immediate)</h3>
-                  </div>
-                </div>
-                <span class="badge-tag badge-blue">Most Likely</span>
-              </div>
-
-              <p class="scenario-desc">
-                Start a software job after B.Tech and gain work experience.
-              </p>
-
-              <!-- Probability Bar -->
-              <div class="prob-section">
-                <div class="prob-header">
-                  <span class="prob-lbl">Probability (based on current trends)</span>
-                  <span class="prob-val val-blue">72%</span>
-                </div>
-                <div class="prob-track">
-                  <div class="prob-fill fill-blue" style="width: 72%;"></div>
-                </div>
-              </div>
-
-              <!-- Key Assumptions -->
-              <div class="assumptions-box">
-                <div class="assumptions-header">
-                  <span class="assumptions-title">Key Assumptions</span>
-                  <button class="edit-link" type="button">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                    <span>Edit</span>
-                  </button>
-                </div>
-
-                <div class="assumption-list">
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-blue">💼</span>
-                      <span>Starting Salary</span>
-                    </div>
-                    <span class="assumption-val">₹ 6.0 LPA</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-green">📈</span>
-                      <span>Annual Growth Rate</span>
-                    </div>
-                    <span class="assumption-val">8%</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-orange">🛡️</span>
-                      <span>Job Market Stability</span>
-                    </div>
-                    <span class="assumption-val">Moderate</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-purple">📍</span>
-                      <span>Location</span>
-                    </div>
-                    <span class="assumption-val">India</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-blue">🔄</span>
-                      <span>Switch Probability (per year)</span>
-                    </div>
-                    <span class="assumption-val">30%</span>
-                  </div>
-                </div>
-              </div>
+          <!-- Dynamic AI Scenarios Grid -->
+          <div class="scenarios-grid" id="scenarios-grid-container">
+            <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; background: rgba(15, 23, 42, 0.4); border: 1px dashed rgba(59, 130, 246, 0.3); border-radius: 16px; text-align: center;">
+              <div style="width: 44px; height: 44px; border: 3px solid rgba(59, 130, 246, 0.2); border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.9s linear infinite; margin-bottom: 18px;"></div>
+              <h3 style="font-size: 1.15rem; font-weight: 600; color: #f8fafc; margin-bottom: 8px;">Generating Scenarios with AI...</h3>
+              <p style="font-size: 0.88rem; color: #94a3b8; max-width: 440px;">Analyzing your inputs and consulting OpenRouter LLM to construct personalized probabilistic pathways.</p>
             </div>
-
-            <!-- Scenario 2 -->
-            <div class="scenario-card">
-              <div class="card-header-actions">
-                <div class="scenario-badge-row">
-                  <div class="card-icon-box purple-scenario">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
-                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                      <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                    </svg>
-                  </div>
-                  <div class="scenario-titles">
-                    <span class="scenario-num">Scenario 2</span>
-                    <h3 class="scenario-heading">Master's Degree</h3>
-                  </div>
-                </div>
-                <span class="badge-tag badge-red">Higher Risk</span>
-              </div>
-
-              <p class="scenario-desc">
-                Pursue a master's degree with education costs and future growth.
-              </p>
-
-              <!-- Probability Bar -->
-              <div class="prob-section">
-                <div class="prob-header">
-                  <span class="prob-lbl">Probability (based on current trends)</span>
-                  <span class="prob-val val-purple">18%</span>
-                </div>
-                <div class="prob-track">
-                  <div class="prob-fill fill-purple" style="width: 18%;"></div>
-                </div>
-              </div>
-
-              <!-- Key Assumptions -->
-              <div class="assumptions-box">
-                <div class="assumptions-header">
-                  <span class="assumptions-title">Key Assumptions</span>
-                  <button class="edit-link" type="button">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                    <span>Edit</span>
-                  </button>
-                </div>
-
-                <div class="assumption-list">
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-purple">🎓</span>
-                      <span>Total Education Cost</span>
-                    </div>
-                    <span class="assumption-val">₹ 20.0 Lakhs</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-orange">⏱️</span>
-                      <span>Program Duration</span>
-                    </div>
-                    <span class="assumption-val">2 years</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-green">💼</span>
-                      <span>Post-Study Salary (Intl.)</span>
-                    </div>
-                    <span class="assumption-val">₹ 45.0 LPA</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-purple">🛂</span>
-                      <span>Visa/Work Probability</span>
-                    </div>
-                    <span class="assumption-val">70%</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-blue">📍</span>
-                      <span>Location</span>
-                    </div>
-                    <span class="assumption-val">USA/Canada</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Scenario 3 -->
-            <div class="scenario-card">
-              <div class="card-header-actions">
-                <div class="scenario-badge-row">
-                  <div class="card-icon-box green-scenario">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
-                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                    </svg>
-                  </div>
-                  <div class="scenario-titles">
-                    <span class="scenario-num">Scenario 3</span>
-                    <h3 class="scenario-heading">Job + Part-time Study</h3>
-                  </div>
-                </div>
-                <span class="badge-tag badge-green">Balanced</span>
-              </div>
-
-              <p class="scenario-desc">
-                Take a job and pursue higher studies part-time for balanced growth.
-              </p>
-
-              <!-- Probability Bar -->
-              <div class="prob-section">
-                <div class="prob-header">
-                  <span class="prob-lbl">Probability (based on current trends)</span>
-                  <span class="prob-val val-green">10%</span>
-                </div>
-                <div class="prob-track">
-                  <div class="prob-fill fill-green" style="width: 10%;"></div>
-                </div>
-              </div>
-
-              <!-- Key Assumptions -->
-              <div class="assumptions-box">
-                <div class="assumptions-header">
-                  <span class="assumptions-title">Key Assumptions</span>
-                  <button class="edit-link" type="button">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                    <span>Edit</span>
-                  </button>
-                </div>
-
-                <div class="assumption-list">
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-blue">💼</span>
-                      <span>Starting Salary</span>
-                    </div>
-                    <span class="assumption-val">₹ 5.5 LPA</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-purple">🎓</span>
-                      <span>Part-time Study Cost</span>
-                    </div>
-                    <span class="assumption-val">₹ 3.0 Lakhs</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-green">📈</span>
-                      <span>Annual Growth Rate</span>
-                    </div>
-                    <span class="assumption-val">7%</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-orange">⏱️</span>
-                      <span>Study Duration</span>
-                    </div>
-                    <span class="assumption-val">3 years</span>
-                  </div>
-
-                  <div class="assumption-item">
-                    <div class="assumption-left">
-                      <span class="assumption-icon icon-purple">⚖️</span>
-                      <span>Work-Study Balance</span>
-                    </div>
-                    <span class="assumption-val">Manageable</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
 
           <!-- Bottom Row: Add Custom Scenario & Scenario Notes -->
@@ -682,53 +416,65 @@
     });
 
     async function fetchAndRenderScenarios() {
+      const grid = document.querySelector('.scenarios-grid');
+
       // 1. Check localStorage first
       const cached = localStorage.getItem('realitysim_scenarios');
       if (cached) {
         try {
-          loadedScenarios = JSON.parse(cached);
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            loadedScenarios = parsed;
+            renderScenariosGrid(loadedScenarios);
+            return;
+          }
         } catch (e) {}
       }
 
-      // 2. Try backend API if available
+      // Show animated loading state
+      if (grid) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; background: rgba(15, 23, 42, 0.4); border: 1px dashed rgba(59, 130, 246, 0.3); border-radius: 16px; text-align: center;">
+            <div style="width: 44px; height: 44px; border: 3px solid rgba(59, 130, 246, 0.2); border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.9s linear infinite; margin-bottom: 18px;"></div>
+            <h3 style="font-size: 1.15rem; font-weight: 600; color: #f8fafc; margin-bottom: 8px;">Generating Scenarios with AI...</h3>
+            <p style="font-size: 0.88rem; color: #94a3b8; max-width: 440px;">Analyzing your inputs and consulting OpenRouter LLM to construct personalized probabilistic pathways.</p>
+          </div>
+        `;
+      }
+
+      // 2. Generate real AI scenarios via OpenRouter LLM
+      const prompt = localStorage.getItem('realitysim_prompt') || "Strategic Career and Financial Decision";
+      const info = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
       try {
-        const res = await fetch(`/api/simulations/${simId}/scenarios`);
-        if (res.ok) {
-          const apiScenarios = await res.json();
-          if (apiScenarios && apiScenarios.length > 0) {
-            loadedScenarios = apiScenarios;
-            localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
+        const aiResult = await RealitySimAIService.generateScenarios(prompt, info);
+        if (aiResult && aiResult.scenarios && aiResult.scenarios.length > 0) {
+          loadedScenarios = aiResult.scenarios;
+          localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
+          if (aiResult.title) localStorage.setItem('realitysim_title', aiResult.title);
+          if (aiResult.category) localStorage.setItem('realitysim_category', aiResult.category);
+          
+          const title = localStorage.getItem('realitysim_title');
+          if (title) {
+            const headerTitle = document.querySelector('.header-title-main');
+            if (headerTitle) headerTitle.textContent = title;
           }
+
+          renderScenariosGrid(loadedScenarios);
+          return;
         }
       } catch (err) {
-        console.log("Client simulation mode active:", err);
-      }
-
-      // 3. Generate real AI scenarios via OpenRouter if empty
-      if (!loadedScenarios || loadedScenarios.length === 0) {
-        const prompt = localStorage.getItem('realitysim_prompt') || "Strategic Career and Financial Decision";
-        const info = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
-        try {
-          const aiResult = await RealitySimAIService.generateScenarios(prompt, info);
-          if (aiResult && aiResult.scenarios) {
-            loadedScenarios = aiResult.scenarios;
-            localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
-            if (aiResult.title) localStorage.setItem('realitysim_title', aiResult.title);
-            if (aiResult.category) localStorage.setItem('realitysim_category', aiResult.category);
-          }
-        } catch (err) {
-          console.error("OpenRouter fetch error:", err);
+        console.error("OpenRouter fetch error:", err);
+        if (grid) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; padding: 40px 24px; text-align: center; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 16px;">
+              <div style="font-size: 2rem; margin-bottom: 12px;">⚠️</div>
+              <h3 style="color: #f87171; font-size: 1.15rem; font-weight: 600; margin-bottom: 8px;">AI Scenario Generation Error</h3>
+              <p style="color: #cbd5e1; font-size: 0.9rem; max-width: 450px; margin: 0 auto 20px auto;">Could not generate scenarios from OpenRouter. Please try again.</p>
+              <button onclick="fetchAndRenderScenarios()" style="padding: 10px 24px; border-radius: 8px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; font-weight: 600; cursor: pointer;">Retry AI Generation</button>
+            </div>
+          `;
         }
       }
-
-      // Set Page Header Title if available
-      const title = localStorage.getItem('realitysim_title');
-      if (title) {
-        const headerTitle = document.querySelector('.header-title-main');
-        if (headerTitle) headerTitle.textContent = title;
-      }
-
-      renderScenariosGrid(loadedScenarios);
     }
 
     function renderScenariosGrid(scenarios) {

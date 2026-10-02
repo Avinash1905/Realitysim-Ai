@@ -405,7 +405,9 @@
         };
 
         // Save into local storage
-        localStorage.setItem('realitysim_additional_info', JSON.stringify(payload));
+        // Clear stale scenarios cache
+        localStorage.removeItem('realitysim_scenarios');
+        localStorage.removeItem('realitysim_results');
 
         generateBtn.style.opacity = '0.7';
         generateBtn.style.pointerEvents = 'none';
@@ -423,8 +425,8 @@
           const aiResult = await RealitySimAIService.generateScenarios(prompt, payload);
           if (aiResult && aiResult.scenarios && aiResult.scenarios.length > 0) {
             localStorage.setItem('realitysim_scenarios', JSON.stringify(aiResult.scenarios));
-            localStorage.setItem('realitysim_title', aiResult.title || 'Decision Simulation');
-            localStorage.setItem('realitysim_category', aiResult.category || 'Career');
+            if (aiResult.title) localStorage.setItem('realitysim_title', aiResult.title);
+            if (aiResult.category) localStorage.setItem('realitysim_category', aiResult.category);
           }
         } catch (err) {
           console.error("AI Generation error via OpenRouter:", err);
