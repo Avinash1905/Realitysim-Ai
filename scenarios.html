@@ -794,7 +794,7 @@
             <!-- Probability Bar -->
             <div class="prob-section">
               <div class="prob-header">
-                <span class="prob-lbl">Probability (based on current trends)</span>
+                <span class="prob-lbl">Estimated Chance of Success</span>
                 <span class="prob-val ${theme.valClass}">${sc.probability || sc.probability_pct || sc.variables?.success_rate_pct || 75}%</span>
               </div>
               <div class="prob-track">
@@ -805,7 +805,7 @@
             <!-- Key Assumptions -->
             <div class="assumptions-box">
               <div class="assumptions-header">
-                <span class="assumptions-title">Key Assumptions</span>
+                <span class="assumptions-title">Key Costs & Profit Breakdown</span>
                 <button class="edit-link" type="button" onclick="openEditModal('${sc.id}')">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -967,15 +967,15 @@
             },
             scenario_comparisons: scenarioComparisons,
             key_insights: [
-              `Primary scenario yields an expected compound return of ${MonteCarloEngine.formatINR(primarySim.mean)} over ${horizonYears} years.`,
-              `Downside floor (10th percentile) is protected at ${MonteCarloEngine.formatINR(primarySim.p10)}.`,
-              `Upside potential (90th percentile) reaches ${MonteCarloEngine.formatINR(primarySim.p90)} with sustained momentum.`
+              `Most Likely Result: You are estimated to accumulate approx. ${MonteCarloEngine.formatINR(primarySim.mean)} in total savings over ${horizonYears} years.`,
+              `Worst-Case Safety Floor: In slower months or rainy seasons, your estimated floor stays protected around ${MonteCarloEngine.formatINR(primarySim.p10)}.`,
+              `Best-Case High Growth: If customer word-of-mouth grows rapidly, your 5-year profit can reach up to ${MonteCarloEngine.formatINR(primarySim.p90)}.`
             ],
             factor_breakdown: [
-              { name: 'Income Growth & Progressions', impact: '+48%', status: 'Positive Driver' },
-              { name: 'Living & Lifestyle Expenses', impact: '-22%', status: 'Cash Outflow' },
-              { name: 'Upfront Capital & Prep Cost', impact: '-14%', status: 'Initial Hurdle' },
-              { name: 'Macro Market Shock Resilience', impact: '+16%', status: 'Stability Factor' }
+              { name: 'Daily Sales & Customer Growth', impact: '+48%', status: 'Main Money Maker' },
+              { name: 'Rent, Bills & Raw Materials', impact: '-22%', status: 'Monthly Expense' },
+              { name: 'Starting Setup & Equipment Cost', impact: '-14%', status: 'One-Time Hurdle' },
+              { name: 'Financial Emergency Cushion', impact: '+16%', status: 'Safety Factor' }
             ]
           };
 

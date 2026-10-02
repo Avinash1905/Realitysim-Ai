@@ -14,32 +14,41 @@ exports.handler = async function(event, context) {
   try {
     const { decision_prompt, additional_info } = JSON.parse(event.body || "{}");
 
-    const systemPrompt = `You are RealitySim AI, an advanced probabilistic decision modeling engine.
-Analyze the user's decision and generate 3 to 4 distinct, realistic future scenarios.
-You MUST output ONLY valid JSON matching this structure:
+    const systemPrompt = `You are RealitySim AI, a practical decision simulator built for everyday people.
+Analyze the user's decision and generate 3 realistic, grounded scenarios in SIMPLE, EVERYDAY ENGLISH (no complex financial jargon, no inflated "fancy" numbers).
+
+Guidelines for realistic estimates:
+1. Break down real monthly/daily economics (e.g. for shops/stalls: daily customer count, setup deposit, daily sales, and honest monthly take-home profit after all bills).
+2. For jobs/careers: use realistic in-hand salary, living expenses, and normal yearly appraisal hikes.
+3. Write clear 1-2 sentence descriptions explaining how each path works in plain English.
+4. Keep initial upfront costs and profits realistic for India / local markets.
+
+You MUST output ONLY valid JSON in this exact structure:
 {
-  "title": "Short title of decision",
-  "category": "Career / Financial / Education / Business",
+  "title": "Simple Decision Name",
+  "category": "Practical Category",
   "scenarios": [
     {
-      "name": "Scenario Name",
-      "badge": "Most Likely / Higher Risk / Balanced / Conservative",
-      "badge_color": "blue / red / green / purple",
-      "description": "Specific, realistic description of what happens in this scenario.",
+      "name": "Simple Name of Option (e.g. Standard Kiosk / Direct Job)",
+      "badge": "Most Likely / Higher Risk / Balanced",
+      "badge_color": "blue / red / green",
+      "badge_type": "recommended / risky / balanced",
+      "description": "Simple 1-2 sentence explanation of what this option means in real life.",
+      "probability": 82,
       "assumptions": [
-        {"icon": "💼", "label": "Starting Compensation", "value": "₹ 7.5 LPA"},
-        {"icon": "📈", "label": "Annual Hike", "value": "12%"},
-        {"icon": "⏱️", "label": "Effort / Study", "value": "10 hrs/week"}
+        {"icon": "💰", "label": "Setup Cost", "value": "₹ 60,000 upfront"},
+        {"icon": "💵", "label": "Monthly Take-Home", "value": "₹ 35,000 / mo"},
+        {"icon": "🛡️", "label": "Main Risk", "value": "Location footfall"}
       ],
       "variables": {
-        "base_cashflow_annual": 750000,
-        "growth_mean_pct": 12,
-        "growth_std_pct": 3.5,
-        "upfront_cost": 0,
-        "annual_cost": 240000,
-        "success_rate_pct": 85,
+        "base_cashflow_annual": 420000,
+        "growth_mean_pct": 10.0,
+        "growth_std_pct": 3.0,
+        "upfront_cost": 60000,
+        "annual_cost": 150000,
+        "success_rate_pct": 82,
         "downside_risk_pct": 10,
-        "volatility_index": 0.20
+        "volatility_index": 0.18
       }
     }
   ]
@@ -49,11 +58,11 @@ You MUST output ONLY valid JSON matching this structure:
     const userPrompt = `Decision: "${decision_prompt}"
 Context & Profile:
 - Age: ${info.age || 22}
-- Education: ${info.education_level || 'B.Tech CSE'}
+- Education: ${info.education_level || 'General / Professional'}
 - Location: ${info.location || 'India'}
-- Experience: ${info.work_experience || 'Fresher'}
+- Experience: ${info.work_experience || 'Fresher / Beginner'}
 - Current Savings: ₹ ${info.current_savings || 50000}
-- Expected Income: ₹ ${info.expected_annual_income || 600000}
+- Expected Income: ₹ ${info.expected_annual_income || 400000}
 - Monthly Expenses: ₹ ${info.monthly_expenses || 15000}
 - Time Horizon: ${info.time_horizon || '5 years'}
 - Priority: ${info.decision_priority || 'Balanced Growth'}
