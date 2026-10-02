@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="additional-info.css">
+  <script src="realitysim-engine.js"></script>
 </head>
 <body>
   <!-- Fixed Background Video -->
@@ -492,36 +493,15 @@
       return parseFloat(str.replace(/[^0-9.-]+/g, "")) || 0;
     }
 
-    // Generate Scenarios API Submission
+    // Generate Scenarios Submission
     const generateBtn = document.querySelector('.btn-generate-scenarios');
     if (generateBtn) {
       generateBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         
-        let simId = localStorage.getItem('realitysim_current_id');
-        if (!simId) {
-          // If no simulation exists yet, create one first
-          const prompt = localStorage.getItem('realitysim_prompt') || "I am deciding whether to take a software job after B.Tech or pursue a master's degree. Compare the possible outcomes over 5 years.";
-          try {
-            const createRes = await fetch('/api/simulations', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ decision_prompt: prompt })
-            });
-            if (createRes.ok) {
-              const data = await createRes.json();
-              simId = data.id;
-              localStorage.setItem('realitysim_current_id', simId);
-            }
-          } catch (err) {
-            console.error(err);
-          }
-        }
-
-        if (!simId) {
-          window.location.href = 'scenarios.html';
-          return;
-        }
+        let simId = localStorage.getItem('realitysim_current_id') || ('sim_' + Date.now());
+        localStorage.setItem('realitysim_current_id', simId);
+        const prompt = localStorage.getItem('realitysim_prompt') || "I am deciding whether to take a software job after B.Tech or pursue a master's degree. Compare the possible outcomes over 5 years.";
 
         // Collect Goals
         const goals = [];
@@ -553,32 +533,37 @@
           external_factors: document.getElementById('external-textarea')?.value || ''
         };
 
+        // Save into local storage
+        localStorage.setItem('realitysim_additional_info', JSON.stringify(payload));
+
         generateBtn.style.opacity = '0.7';
         generateBtn.style.pointerEvents = 'none';
-        generateBtn.querySelector('span').textContent = 'Generating Scenarios...';
+        generateBtn.querySelector('span').textContent = 'AI Generating Possibilities...';
 
         try {
-          // 1. Save additional info
-          await fetch(`/api/simulations/${simId}/additional-info`, {
+          // 1. Try Backend if running locally
+          fetch(`/api/simulations/${simId}/additional-info`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
-          });
+          }).catch(() => {});
 
-          // 2. Trigger AI scenario generation
-          const genRes = await fetch(`/api/simulations/${simId}/generate-scenarios`, {
-            method: 'POST'
-          });
-
-          if (genRes.ok) {
-            window.location.href = 'scenarios.html';
-          } else {
-            window.location.href = 'scenarios.html';
+          // 2. Generate Real AI Scenarios via RealitySimAIService
+          const aiResult = await RealitySimAIService.generateScenarios(prompt, payload);
+          if (aiResult && aiResult.scenarios && aiResult.scenarios.length > 0) {
+            localStorage.setItem('realitysim_scenarios', JSON.stringify(aiResult.scenarios));
+            localStorage.setItem('realitysim_title', aiResult.title || 'Decision Simulation');
+            localStorage.setItem('realitysim_category', aiResult.category || 'Career');
           }
         } catch (err) {
-          console.error("API error during generation:", err);
-          window.location.href = 'scenarios.html';
+          console.error("AI Generation error, using smart fallback:", err);
+          const fallback = RealitySimAIService.generateSmartFallback(prompt, payload);
+          localStorage.setItem('realitysim_scenarios', JSON.stringify(fallback.scenarios));
+          localStorage.setItem('realitysim_title', fallback.title);
+          localStorage.setItem('realitysim_category', fallback.category);
         }
+
+        window.location.href = 'scenarios.html';
       });
     }
   </script>

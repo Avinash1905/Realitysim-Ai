@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="results.css">
+  <script src="realitysim-engine.js"></script>
 </head>
 <body>
   <!-- Fixed Background Video -->
@@ -623,14 +624,25 @@
     });
 
     async function fetchAndRenderResults() {
+      // 1. Check localStorage first
+      const cached = localStorage.getItem('realitysim_results');
+      if (cached) {
+        try {
+          const localData = JSON.parse(cached);
+          renderResultsData(localData);
+        } catch (e) {}
+      }
+
+      // 2. Try backend API if active
       try {
         const res = await fetch(`/api/simulations/${simId}/results`);
         if (res.ok) {
           const data = await res.json();
           renderResultsData(data);
+          localStorage.setItem('realitysim_results', JSON.stringify(data));
         }
       } catch (err) {
-        console.error("Error fetching simulation results:", err);
+        console.log("Client-side results mode active:", err);
       }
     }
 
@@ -909,6 +921,7 @@
           recalcBtn.textContent = 'Recalculating 10,000 Runs...';
           recalcBtn.style.opacity = '0.75';
 
+          // 1. Try Backend if active
           try {
             const res = await fetch(`/api/simulations/${simId}/what-if`, {
               method: 'POST',
@@ -925,14 +938,50 @@
             if (res.ok) {
               const updatedData = await res.json();
               renderResultsData(updatedData);
+              localStorage.setItem('realitysim_results', JSON.stringify(updatedData));
               closeWhatIfModal();
+              return;
             }
-          } catch (err) {
-            console.error("Error in What-If recalculation:", err);
-          } finally {
-            recalcBtn.textContent = 'Run What-If Simulation';
-            recalcBtn.style.opacity = '1';
-          }
+          } catch (err) {}
+
+          // 2. Client-side Real Monte Carlo Recalculation
+          const cachedScenarios = JSON.parse(localStorage.getItem('realitysim_scenarios') || '[]');
+          const userInfo = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
+          const horizonYears = parseInt(userInfo.time_horizon || '5') || 5;
+          const primarySc = JSON.parse(JSON.stringify(cachedScenarios[0] || {}));
+          
+          if (!primarySc.variables) primarySc.variables = {};
+          primarySc.variables.growth_mean_pct = (parseFloat(primarySc.variables.growth_mean_pct || 8.5)) + growthDelta;
+          primarySc.variables.volatility_index = vol;
+          primarySc.variables.annual_cost = (parseFloat(primarySc.variables.annual_cost || 180000)) * costMult;
+
+          const updatedSim = MonteCarloEngine.runScenario(primarySc, horizonYears, 10000, userInfo);
+          const currResults = JSON.parse(localStorage.getItem('realitysim_results') || '{}');
+
+          currResults.expected_outcome = MonteCarloEngine.formatINR(updatedSim.mean);
+          currResults.median_outcome = MonteCarloEngine.formatINR(updatedSim.median);
+          currResults.risk_level = updatedSim.p10 < 0 ? 'High' : (updatedSim.prob_positive > 88 ? 'Low' : 'Medium');
+          currResults.risk_score = Math.round(Math.max(10, Math.min(95, 100 - updatedSim.prob_positive * 0.7 + (updatedSim.std / (updatedSim.mean || 1)) * 8)));
+          currResults.confidence_pct = `${Math.round(updatedSim.prob_positive)}%`;
+          currResults.confidence_subtext = `Adjusted for ${growthDelta >= 0 ? '+' : ''}${growthDelta}% growth shift & ${(costMult * 100).toFixed(0)}% expense scaling.`;
+          currResults.distribution_data = {
+            p10: MonteCarloEngine.formatINR(updatedSim.p10),
+            p25: MonteCarloEngine.formatINR(updatedSim.p25),
+            p50: MonteCarloEngine.formatINR(updatedSim.p50),
+            p75: MonteCarloEngine.formatINR(updatedSim.p75),
+            p90: MonteCarloEngine.formatINR(updatedSim.p90),
+            curve_points: updatedSim.histogram.frequencies.map((freq, idx) => ({
+              x: (idx / (updatedSim.histogram.frequencies.length - 1)) * 500,
+              y: 180 - (freq / (Math.max(...updatedSim.histogram.frequencies) || 1)) * 140
+            }))
+          };
+
+          renderResultsData(currResults);
+          localStorage.setItem('realitysim_results', JSON.stringify(currResults));
+          closeWhatIfModal();
+
+          recalcBtn.textContent = 'Run What-If Simulation';
+          recalcBtn.style.opacity = '1';
         });
       }
 

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="scenarios.css">
+  <script src="realitysim-engine.js"></script>
 </head>
 <body>
   <!-- Fixed Background Video -->
@@ -675,17 +676,47 @@
     });
 
     async function fetchAndRenderScenarios() {
+      // 1. Check localStorage first
+      const cached = localStorage.getItem('realitysim_scenarios');
+      if (cached) {
+        try {
+          loadedScenarios = JSON.parse(cached);
+        } catch (e) {}
+      }
+
+      // 2. Try backend API if available
       try {
         const res = await fetch(`/api/simulations/${simId}/scenarios`);
         if (res.ok) {
-          loadedScenarios = await res.json();
-          if (loadedScenarios && loadedScenarios.length > 0) {
-            renderScenariosGrid(loadedScenarios);
+          const apiScenarios = await res.json();
+          if (apiScenarios && apiScenarios.length > 0) {
+            loadedScenarios = apiScenarios;
+            localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
           }
         }
       } catch (err) {
-        console.error("Error loading scenarios:", err);
+        console.log("Client simulation mode active:", err);
       }
+
+      // 3. Smart fallback if empty
+      if (!loadedScenarios || loadedScenarios.length === 0) {
+        const prompt = localStorage.getItem('realitysim_prompt') || "Higher education vs immediate industry job";
+        const info = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
+        const fallback = RealitySimAIService.generateSmartFallback(prompt, info);
+        loadedScenarios = fallback.scenarios;
+        localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
+        localStorage.setItem('realitysim_title', fallback.title);
+        localStorage.setItem('realitysim_category', fallback.category);
+      }
+
+      // Set Page Header Title if available
+      const title = localStorage.getItem('realitysim_title');
+      if (title) {
+        const headerTitle = document.querySelector('.header-title-main');
+        if (headerTitle) headerTitle.textContent = title;
+      }
+
+      renderScenariosGrid(loadedScenarios);
     }
 
     function renderScenariosGrid(scenarios) {
@@ -868,19 +899,83 @@
           const labelSpan = continueBtn.querySelector('span');
           if (labelSpan) labelSpan.textContent = 'Running 10,000 Simulations...';
 
-          try {
-            const runRes = await fetch(`/api/simulations/${simId}/run`, {
-              method: 'POST'
+          const prompt = localStorage.getItem('realitysim_prompt') || 'Decision Simulation';
+          const title = localStorage.getItem('realitysim_title') || 'Decision Simulation';
+          const category = localStorage.getItem('realitysim_category') || 'Career & Strategy';
+          const userInfo = JSON.parse(localStorage.getItem('realitysim_additional_info') || '{}');
+          const horizonYears = parseInt(userInfo.time_horizon || '5') || 5;
+
+          // 1. Run Monte Carlo across all scenarios
+          const scenarioComparisons = [];
+          let primarySim = null;
+
+          loadedScenarios.forEach((sc, idx) => {
+            const sim = MonteCarloEngine.runScenario(sc, horizonYears, 10000, userInfo);
+            if (idx === 0) primarySim = sim;
+            scenarioComparisons.push({
+              name: sc.name,
+              color: idx === 0 ? 'blue' : (idx === 1 ? 'purple' : (idx === 2 ? 'green' : 'orange')),
+              badge: sc.badge || (idx === 0 ? 'Most Likely' : (sc.risk_level === 'High' ? 'Higher Risk' : 'Balanced')),
+              expected_value: MonteCarloEngine.formatINR(sim.mean),
+              p10_p90_range: `${MonteCarloEngine.formatINR(sim.p10)} – ${MonteCarloEngine.formatINR(sim.p90)}`,
+              risk_level: sim.p10 < 0 ? 'High' : (sim.prob_positive > 88 ? 'Low' : 'Medium'),
+              risk_score: Math.round(Math.max(10, Math.min(95, 100 - sim.prob_positive * 0.7 + (sim.std / (sim.mean || 1)) * 10))),
+              confidence: `${Math.round(sim.prob_positive)}%`
             });
-            if (runRes.ok) {
-              window.location.href = 'results.html';
-            } else {
-              window.location.href = 'results.html';
-            }
-          } catch (err) {
-            console.error("Error executing simulation:", err);
-            window.location.href = 'results.html';
+          });
+
+          if (!primarySim) {
+            primarySim = MonteCarloEngine.runScenario(loadedScenarios[0] || {}, horizonYears, 10000, userInfo);
           }
+
+          // Build complete results structure
+          const resultsData = {
+            id: simId,
+            decision_prompt: prompt,
+            title: title,
+            category: category,
+            time_horizon: `${horizonYears} years`,
+            runs_count: 10000,
+            created_at_formatted: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+            expected_outcome: MonteCarloEngine.formatINR(primarySim.mean),
+            median_outcome: MonteCarloEngine.formatINR(primarySim.median),
+            trend: primarySim.mean > 0 ? `+${Math.round(Math.min(180, (primarySim.mean / (userInfo.expected_annual_income || 600000)) * 25))}% vs baseline` : '-12%',
+            risk_level: primarySim.p10 < 0 ? 'High' : (primarySim.prob_positive > 88 ? 'Low' : 'Medium'),
+            risk_score: Math.round(Math.max(12, Math.min(92, 100 - primarySim.prob_positive * 0.7 + (primarySim.std / (primarySim.mean || 1)) * 8))),
+            confidence_pct: `${Math.round(primarySim.prob_positive)}%`,
+            confidence_subtext: `Based on 10,000 Monte Carlo runs with ${primarySim.prob_positive.toFixed(1)}% likelihood of net-positive wealth creation over ${horizonYears} years.`,
+            distribution_data: {
+              p10: MonteCarloEngine.formatINR(primarySim.p10),
+              p25: MonteCarloEngine.formatINR(primarySim.p25),
+              p50: MonteCarloEngine.formatINR(primarySim.p50),
+              p75: MonteCarloEngine.formatINR(primarySim.p75),
+              p90: MonteCarloEngine.formatINR(primarySim.p90),
+              curve_points: primarySim.histogram.frequencies.map((freq, idx) => ({
+                x: (idx / (primarySim.histogram.frequencies.length - 1)) * 500,
+                y: 180 - (freq / (Math.max(...primarySim.histogram.frequencies) || 1)) * 140
+              }))
+            },
+            scenario_comparisons: scenarioComparisons,
+            key_insights: [
+              `Primary scenario yields an expected compound return of ${MonteCarloEngine.formatINR(primarySim.mean)} over ${horizonYears} years.`,
+              `Downside floor (10th percentile) is protected at ${MonteCarloEngine.formatINR(primarySim.p10)}.`,
+              `Upside potential (90th percentile) reaches ${MonteCarloEngine.formatINR(primarySim.p90)} with sustained momentum.`
+            ],
+            factor_breakdown: [
+              { name: 'Income Growth & Progressions', impact: '+48%', status: 'Positive Driver' },
+              { name: 'Living & Lifestyle Expenses', impact: '-22%', status: 'Cash Outflow' },
+              { name: 'Upfront Capital & Prep Cost', impact: '-14%', status: 'Initial Hurdle' },
+              { name: 'Macro Market Shock Resilience', impact: '+16%', status: 'Stability Factor' }
+            ]
+          };
+
+          localStorage.setItem('realitysim_results', JSON.stringify(resultsData));
+
+          try {
+            await fetch(`/api/simulations/${simId}/run`, { method: 'POST' });
+          } catch (e) {}
+
+          window.location.href = 'results.html';
         });
       }
 
@@ -890,7 +985,7 @@
         saveAssumptionsBtn.addEventListener('click', async () => {
           if (!activeEditingScenarioId) return;
 
-          const currentSc = loadedScenarios.find(s => s.id === activeEditingScenarioId);
+          const currentSc = loadedScenarios.find(s => (s.id == activeEditingScenarioId || s == activeEditingScenarioId));
           if (!currentSc) return;
 
           const updatedAssumptions = [];
@@ -907,22 +1002,22 @@
             });
           });
 
+          currentSc.assumptions = updatedAssumptions;
+          localStorage.setItem('realitysim_scenarios', JSON.stringify(loadedScenarios));
+
           try {
             saveAssumptionsBtn.textContent = 'Saving...';
-            const res = await fetch(`/api/simulations/${simId}/scenarios/${activeEditingScenarioId}`, {
+            await fetch(`/api/simulations/${simId}/scenarios/${activeEditingScenarioId}`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ assumptions: updatedAssumptions })
             });
-
-            if (res.ok) {
-              closeEditModal();
-              await fetchAndRenderScenarios();
-            }
           } catch (err) {
-            console.error(err);
+            console.log(err);
           } finally {
             saveAssumptionsBtn.textContent = 'Save Assumptions';
+            closeEditModal();
+            renderScenariosGrid(loadedScenarios);
           }
         });
       }

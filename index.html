@@ -82,6 +82,7 @@
     </section>
   </div>
 
+  <script src="realitysim-engine.js"></script>
   <script>
     // Video autoplay enforcement
     const video = document.getElementById('bg-video');
@@ -114,7 +115,7 @@
       });
     }
 
-    // Submit Decision to Backend API
+    // Submit Decision to Backend API / Static Engine
     const simulateBtn = document.querySelector('.simulate-cta-btn');
     if (simulateBtn) {
       simulateBtn.addEventListener('click', async (e) => {
@@ -124,6 +125,11 @@
         
         simulateBtn.style.opacity = '0.7';
         simulateBtn.style.pointerEvents = 'none';
+
+        // Store local state immediately
+        const localId = 'sim_' + Date.now();
+        localStorage.setItem('realitysim_current_id', localId);
+        localStorage.setItem('realitysim_prompt', finalPrompt);
         
         try {
           const res = await fetch('/api/simulations', {
@@ -133,16 +139,12 @@
           });
           if (res.ok) {
             const data = await res.json();
-            localStorage.setItem('realitysim_current_id', data.id);
-            localStorage.setItem('realitysim_prompt', finalPrompt);
-            window.location.href = 'additional-info.html';
-          } else {
-            window.location.href = 'additional-info.html';
+            if (data.id) localStorage.setItem('realitysim_current_id', data.id);
           }
         } catch (err) {
-          console.error("API error, proceeding to additional-info:", err);
-          window.location.href = 'additional-info.html';
+          console.log("Local static mode active:", err);
         }
+        window.location.href = 'additional-info.html';
       });
     }
   </script>

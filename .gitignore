@@ -39,3 +39,4 @@ realitysim.db
 .idea/
 .DS_Store
 Thumbs.db
+.netlify/
